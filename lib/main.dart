@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tugas_akhir/routes/pages.dart';
-import 'package:tugas_akhir/services/service_preferences.dart';
+import 'package:tugas_akhir/app/global/bindings/app_binding.dart';
+import 'package:tugas_akhir/app/routes/app_pages.dart';
+
+import 'app/data/utils/service_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceService.init();
 
-  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await SharedPreferences.getInstance();
   runApp(const MyApp());
 }
 
@@ -21,12 +22,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Cook4Life",
-      getPages: AppRoutes.pages,
+      getPages: AppPages.routes,
       // initialRoute: AppPages.Introduction,
       initialRoute: PreferenceService.getFirst() != "untrue"
-          ? AppPages.Introduction
-          : AppRoutes.INITIAL,
+          ? AppPages.INTRODUCTION
+          : AppPages.INITIAL,
       defaultTransition: Transition.fadeIn,
+      initialBinding: AppBinding(),
     );
   }
 }

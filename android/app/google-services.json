@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "181870268939",
+    "project_id": "cook4life-c9c1e",
+    "storage_bucket": "cook4life-c9c1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181870268939:android:26a9328e4a96ee0bce6d0e",
+        "android_client_info": {
+          "package_name": "com.example.tugas_akhir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "181870268939-9mhj9jkj4lq00uuuu1jfr5i3s372lmjp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tugas_akhir",
+            "certificate_hash": "3c375409f2945e1017460dfdc5d56ab834688dc5"
+          }
+        },
+        {
+          "client_id": "181870268939-l1oa73l0ah179d9fv7pqtc2lm3cjdmd2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeCnXravpcDSTv5xcjQmrKE-uTL7f16L4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "181870268939-l1oa73l0ah179d9fv7pqtc2lm3cjdmd2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
