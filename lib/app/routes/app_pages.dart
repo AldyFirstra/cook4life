@@ -37,10 +37,23 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME_NAVBAR,
-      page: () => const HomeNavbarView(),
-      binding: HomeNavbarBinding(),
-    ),
+        name: _Paths.HOME_NAVBAR,
+        page: () => const HomeNavbarView(),
+        bindings: [
+          HomeNavbarBinding(),
+          HomeBinding(),
+          ProfileBinding()
+        ],
+        children: [
+          GetPage(
+            name: _Paths.HOME,
+            page: () => const HomeView(),
+          ),
+          GetPage(
+            name: _Paths.PROFILE,
+            page: () => const ProfileView(),
+          ),
+        ]),
     GetPage(
       name: _Paths.INTRODUCTION,
       page: () => const IntroductionView(),
@@ -55,11 +68,6 @@ class AppPages {
       name: _Paths.CATEGORY,
       page: () => const CategoryView(),
       binding: CategoryBinding(),
-    ),
-    GetPage(
-      name: _Paths.PROFILE,
-      page: () => const ProfileView(),
-      binding: ProfileBinding(),
     ),
     GetPage(
       name: _Paths.NOTIFIKASI,
@@ -90,11 +98,6 @@ class AppPages {
       name: _Paths.DETAIL_MASAKAN,
       page: () => const DetailMasakanView(),
       binding: DetailMasakanBinding(),
-    ),
-    GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
     ),
   ];
 }

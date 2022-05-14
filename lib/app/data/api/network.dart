@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 export 'package:http/http.dart';
+import 'package:get/get.dart';
+
+import '../../global/controllers/app_controller.dart';
 
 class ApiConfig {
-  static const BASE_URL = '';
+  static const BASE_URL = 'https://cook4life.takhruj.com/api';
 }
 
 class API {
@@ -13,6 +16,7 @@ class API {
 
   static Future<http.Response> get(String url,
       {Map<String, String>? headers}) async {
+    headers = _addDefaultHeaders(headers);
     final res =
         await http.get(Uri.parse(ApiConfig.BASE_URL + url), headers: headers);
     networkLogging(method: "GET", url: url, headers: headers, res: res);
@@ -21,6 +25,7 @@ class API {
 
   static Future<http.Response> post(String url,
       {Map<String, String>? headers, body, Encoding? encoding}) async {
+    headers = _addDefaultHeaders(headers);
     final res = await http.post(Uri.parse(ApiConfig.BASE_URL + url),
         headers: headers, body: body, encoding: encoding);
     networkLogging(
@@ -35,9 +40,9 @@ class API {
 
   static Future<http.Response> put(String url,
       {Map<String, String>? headers, body, Encoding? encoding}) async {
+    headers = _addDefaultHeaders(headers);
     final res = await http.put(Uri.parse(ApiConfig.BASE_URL + url),
         headers: headers, body: body, encoding: encoding);
-
     networkLogging(
         method: "PUT",
         url: url,
@@ -50,6 +55,7 @@ class API {
 
   static Future<http.Response> patch(String url,
       {Map<String, String>? headers, body, Encoding? encoding}) async {
+    headers = _addDefaultHeaders(headers);
     final res = await http.patch(Uri.parse(ApiConfig.BASE_URL + url),
         headers: headers, body: body, encoding: encoding);
     networkLogging(
@@ -64,10 +70,19 @@ class API {
 
   static Future<http.Response> delete(String url,
       {Map<String, String>? headers}) async {
+    headers = _addDefaultHeaders(headers);
     final res = await http.delete(Uri.parse(ApiConfig.BASE_URL + url),
         headers: headers);
     networkLogging(method: "DELETE", url: url, headers: headers, res: res);
     return res;
+  }
+
+  static _addDefaultHeaders(Map<String, String>? headers) {
+    headers ??= {};
+    headers['Authorization'] =
+        'Bearer ${Get.find<AppController>().user?.token ?? ""}';
+    headers['Accept'] = 'application/json';
+    return headers;
   }
 
   static void networkLogging(

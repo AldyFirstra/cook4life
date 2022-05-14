@@ -8,15 +8,15 @@ abstract class Routes {
   static const HOME_NAVBAR = _Paths.HOME_NAVBAR;
   static const INTRODUCTION = _Paths.INTRODUCTION;
   static const LOGIN = _Paths.LOGIN;
-  static const CATEGORY = _Paths.CATEGORY;
-  static const PROFILE = _Paths.PROFILE;
+  static const CATEGORY = _Paths.HOME_NAVBAR + _Paths.CATEGORY;
+  static const PROFILE = _Paths.HOME_NAVBAR + _Paths.PROFILE;
   static const NOTIFIKASI = _Paths.NOTIFIKASI;
-  static const TAMBAH_RESEP = _Paths.TAMBAH_RESEP;
+  static const TAMBAH_RESEP = _Paths.HOME_NAVBAR + _Paths.TAMBAH_RESEP;
   static const DETAIL_RESEP = _Paths.DETAIL_RESEP;
   static const DETAIL_RESEP2 = _Paths.DETAIL_RESEP2;
   static const CATEGORY_HASIL = _Paths.CATEGORY_HASIL;
   static const DETAIL_MASAKAN = _Paths.DETAIL_MASAKAN;
-  static const HOME = _Paths.HOME;
+  static const HOME = _Paths.HOME_NAVBAR + _Paths.HOME;
 }
 
 abstract class _Paths {

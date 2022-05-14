@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 import '../controllers/category_controller.dart';
 
@@ -9,17 +11,131 @@ class CategoryView extends GetView<CategoryController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('CategoryView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'CategoryView is working',
-          style: TextStyle(fontSize: 20),
+    return SafeArea(
+        child: Container(
+      width: Get.width,
+      height: Get.height,
+      padding: const EdgeInsets.all(5),
+      color: Colors.white,
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Kategori",
+                        style: GoogleFonts.poppins(
+                          fontSize: 24,
+                          color: Colors.amber,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        "Kategori bahan masakan",
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  const SizedBox(
+                    height: 70,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Container(
+                padding: const EdgeInsets.all(15),
+                height: 50,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey[100],
+                  boxShadow: [
+                    const BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 4.0,
+                      spreadRadius: 0.0,
+                      offset: Offset(1.0, 2.0),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        autocorrect: false,
+                        decoration: InputDecoration.collapsed(
+                          hintText: "Cari bahan",
+                          hintStyle: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                        style: GoogleFonts.poppins(),
+                      ),
+                    ),
+                    const Icon(
+                      Icons.search,
+                      color: Colors.amber,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 35,
+              ),
+              Container(
+                child: GridView.builder(
+                  itemCount: 12,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  shrinkWrap: true,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                  ),
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => Get.toNamed(Routes.CATEGORY),
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          boxShadow: [
+                            const BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 4.0,
+                              spreadRadius: 0.0,
+                              offset: Offset(1.0, 3.0),
+                            ),
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    );
+    ));
   }
 }

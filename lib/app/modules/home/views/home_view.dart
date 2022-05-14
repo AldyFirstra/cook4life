@@ -31,9 +31,9 @@ class HomeView extends GetView<HomeController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Haloo, Aldy",
+                          "Haloo, ${controller.app.user?.name.split(' ').first ?? ''}",
                           style: GoogleFonts.poppins(
-                            fontSize: 24,
+                            fontSize: 18,
                             color: Colors.amber,
                             fontWeight: FontWeight.bold,
                           ),
