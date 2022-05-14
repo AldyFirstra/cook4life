@@ -62,8 +62,8 @@ class CategoryView extends GetView<CategoryController> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.grey[100],
-                  boxShadow: [
-                    const BoxShadow(
+                  boxShadow: const [
+                    BoxShadow(
                       color: Colors.black26,
                       blurRadius: 4.0,
                       spreadRadius: 0.0,
