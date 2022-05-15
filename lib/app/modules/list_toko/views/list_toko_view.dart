@@ -1,4 +1,4 @@
-import 'dart:math';
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 
@@ -6,10 +6,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
-import '../../../data/models/toko.dart';
 import '../controllers/list_toko_controller.dart';
 
 class ListTokoView extends GetView<ListTokoController> {
+  const ListTokoView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

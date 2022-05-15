@@ -19,6 +19,7 @@ abstract class Routes {
   static const HOME = _Paths.HOME_NAVBAR + _Paths.HOME;
   static const LIST_TOKO = _Paths.LIST_TOKO;
   static const TAMBAH_TOKO = _Paths.TAMBAH_TOKO;
+  static const TOKO_MAPS = _Paths.TOKO_MAPS;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const HOME = '/home';
   static const LIST_TOKO = '/list-toko';
   static const TAMBAH_TOKO = '/tambah-toko';
+  static const TOKO_MAPS = '/toko-maps';
 }

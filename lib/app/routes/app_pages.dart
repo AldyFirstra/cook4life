@@ -28,6 +28,8 @@ import '../modules/tambah-resep/bindings/tambah_resep_binding.dart';
 import '../modules/tambah-resep/views/tambah_resep_view.dart';
 import '../modules/tambah_toko/bindings/tambah_toko_binding.dart';
 import '../modules/tambah_toko/views/tambah_toko_view.dart';
+import '../modules/toko_maps/bindings/toko_maps_binding.dart';
+import '../modules/toko_maps/views/toko_maps_view.dart';
 
 // ignore_for_file: constant_identifier_names
 
@@ -106,13 +108,18 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LIST_TOKO,
-      page: () => ListTokoView(),
+      page: () => const ListTokoView(),
       binding: ListTokoBinding(),
     ),
     GetPage(
       name: _Paths.TAMBAH_TOKO,
-      page: () => TambahTokoView(),
+      page: () => const TambahTokoView(),
       binding: TambahTokoBinding(),
+    ),
+    GetPage(
+      name: _Paths.TOKO_MAPS,
+      page: () => TokoMapsView(),
+      binding: TokoMapsBinding(),
     ),
   ];
 }

@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 import '../controllers/detail_resep_controller.dart';
 
@@ -115,6 +114,7 @@ class DetailResepView extends GetView<DetailResepController> {
                     if (val?.isEmpty ?? true) {
                       return "Nama masakan tidak boleh kosong";
                     }
+                    return null;
                   },
                   cursorRadius: const Radius.circular(12),
                   decoration: InputDecoration(
@@ -159,6 +159,7 @@ class DetailResepView extends GetView<DetailResepController> {
                     if (val?.isEmpty ?? true) {
                       return "Deskripsi masakan tidak boleh kosong";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     hintText: "Masukkan deskripsi masakan",

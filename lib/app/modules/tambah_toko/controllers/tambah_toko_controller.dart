@@ -1,20 +1,6 @@
 import 'package:get/get.dart';
 
 class TambahTokoController extends GetxController {
-  //TODO: Implement TambahTokoController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
+  Rx<double> latitude = (0.0).obs;
+  Rx<double> longitude = (0.0).obs;
 }
