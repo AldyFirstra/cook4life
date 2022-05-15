@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:get/get.dart';
 
 import '../modules/category-hasil/bindings/category_hasil_binding.dart';
@@ -18,6 +16,8 @@ import '../modules/home_navbar/bindings/home_navbar_binding.dart';
 import '../modules/home_navbar/views/home_navbar_view.dart';
 import '../modules/introduction/bindings/introduction_binding.dart';
 import '../modules/introduction/views/introduction_view.dart';
+import '../modules/list_toko/bindings/list_toko_binding.dart';
+import '../modules/list_toko/views/list_toko_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/notifikasi/bindings/notifikasi_binding.dart';
@@ -26,6 +26,10 @@ import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/tambah-resep/bindings/tambah_resep_binding.dart';
 import '../modules/tambah-resep/views/tambah_resep_view.dart';
+import '../modules/tambah_toko/bindings/tambah_toko_binding.dart';
+import '../modules/tambah_toko/views/tambah_toko_view.dart';
+
+// ignore_for_file: constant_identifier_names
 
 part 'app_routes.dart';
 
@@ -34,6 +38,7 @@ class AppPages {
 
   static const INITIAL = Routes.LOGIN;
   static const INTRODUCTION = Routes.INTRODUCTION;
+  static const HOME = Routes.HOME_NAVBAR;
 
   static final routes = [
     GetPage(
@@ -42,7 +47,9 @@ class AppPages {
         bindings: [
           HomeNavbarBinding(),
           HomeBinding(),
-          ProfileBinding()
+          ProfileBinding(),
+          CategoryBinding(),
+          TambahResepBinding()
         ],
         children: [
           GetPage(
@@ -52,6 +59,14 @@ class AppPages {
           GetPage(
             name: _Paths.PROFILE,
             page: () => const ProfileView(),
+          ),
+          GetPage(
+            name: _Paths.CATEGORY,
+            page: () => const CategoryView(),
+          ),
+          GetPage(
+            name: _Paths.TAMBAH_RESEP,
+            page: () => const TambahResepView(),
           ),
         ]),
     GetPage(
@@ -65,19 +80,9 @@ class AppPages {
       binding: LoginBinding(),
     ),
     GetPage(
-      name: _Paths.CATEGORY,
-      page: () => const CategoryView(),
-      binding: CategoryBinding(),
-    ),
-    GetPage(
       name: _Paths.NOTIFIKASI,
       page: () => const NotifikasiView(),
       binding: NotifikasiBinding(),
-    ),
-    GetPage(
-      name: _Paths.TAMBAH_RESEP,
-      page: () => const TambahResepView(),
-      binding: TambahResepBinding(),
     ),
     GetPage(
       name: _Paths.DETAIL_RESEP,
@@ -98,6 +103,16 @@ class AppPages {
       name: _Paths.DETAIL_MASAKAN,
       page: () => const DetailMasakanView(),
       binding: DetailMasakanBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIST_TOKO,
+      page: () => ListTokoView(),
+      binding: ListTokoBinding(),
+    ),
+    GetPage(
+      name: _Paths.TAMBAH_TOKO,
+      page: () => TambahTokoView(),
+      binding: TambahTokoBinding(),
     ),
   ];
 }

@@ -27,3 +27,14 @@ class Resep {
         user: User.fromMap(map['user']));
   }
 }
+
+class ResepInput {
+  String? nama;
+  Kategori? kategori;
+  String? deskripsi;
+  String? foto;
+
+  ResepInput({this.kategori, this.nama, this.deskripsi, this.foto});
+
+  toMap() {}
+}

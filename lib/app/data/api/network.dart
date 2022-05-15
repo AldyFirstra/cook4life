@@ -8,26 +8,35 @@ import 'package:get/get.dart';
 import '../../global/controllers/app_controller.dart';
 
 class ApiConfig {
-  static const BASE_URL = 'https://cook4life.takhruj.com/api';
+  static const authority = 'cook4life.takhruj.com';
+  static const BASE_URL = 'https://cook4life.takhruj.com/';
 }
 
 class API {
   static const bool _enableLogging = true;
 
   static Future<http.Response> get(String url,
-      {Map<String, String>? headers}) async {
+      {Map<String, String>? headers,
+      Map<String, dynamic>? queryParameters}) async {
     headers = _addDefaultHeaders(headers);
-    final res =
-        await http.get(Uri.parse(ApiConfig.BASE_URL + url), headers: headers);
+    final res = await http.get(
+        Uri.https(ApiConfig.authority, url, queryParameters),
+        headers: headers);
     networkLogging(method: "GET", url: url, headers: headers, res: res);
     return res;
   }
 
   static Future<http.Response> post(String url,
-      {Map<String, String>? headers, body, Encoding? encoding}) async {
+      {Map<String, String>? headers,
+      body,
+      Encoding? encoding,
+      Map<String, dynamic>? queryParameters}) async {
     headers = _addDefaultHeaders(headers);
-    final res = await http.post(Uri.parse(ApiConfig.BASE_URL + url),
-        headers: headers, body: body, encoding: encoding);
+    final res = await http.post(
+        Uri.https(ApiConfig.authority, url, queryParameters),
+        headers: headers,
+        body: body,
+        encoding: encoding);
     networkLogging(
         method: "POST",
         url: url,
@@ -39,10 +48,16 @@ class API {
   }
 
   static Future<http.Response> put(String url,
-      {Map<String, String>? headers, body, Encoding? encoding}) async {
+      {Map<String, String>? headers,
+      body,
+      Encoding? encoding,
+      Map<String, dynamic>? queryParameters}) async {
     headers = _addDefaultHeaders(headers);
-    final res = await http.put(Uri.parse(ApiConfig.BASE_URL + url),
-        headers: headers, body: body, encoding: encoding);
+    final res = await http.put(
+        Uri.https(ApiConfig.authority, url, queryParameters),
+        headers: headers,
+        body: body,
+        encoding: encoding);
     networkLogging(
         method: "PUT",
         url: url,
@@ -54,10 +69,16 @@ class API {
   }
 
   static Future<http.Response> patch(String url,
-      {Map<String, String>? headers, body, Encoding? encoding}) async {
+      {Map<String, String>? headers,
+      body,
+      Encoding? encoding,
+      Map<String, dynamic>? queryParameters}) async {
     headers = _addDefaultHeaders(headers);
-    final res = await http.patch(Uri.parse(ApiConfig.BASE_URL + url),
-        headers: headers, body: body, encoding: encoding);
+    final res = await http.patch(
+        Uri.https(ApiConfig.authority, url, queryParameters),
+        headers: headers,
+        body: body,
+        encoding: encoding);
     networkLogging(
         method: "PATCH",
         url: url,
@@ -69,9 +90,11 @@ class API {
   }
 
   static Future<http.Response> delete(String url,
-      {Map<String, String>? headers}) async {
+      {Map<String, String>? headers,
+      Map<String, dynamic>? queryParameters}) async {
     headers = _addDefaultHeaders(headers);
-    final res = await http.delete(Uri.parse(ApiConfig.BASE_URL + url),
+    final res = await http.delete(
+        Uri.https(ApiConfig.authority, url, queryParameters),
         headers: headers);
     networkLogging(method: "DELETE", url: url, headers: headers, res: res);
     return res;
@@ -94,7 +117,7 @@ class API {
       required http.Response res}) {
     if (_enableLogging) {
       log("==========NETWORK LOGGING=============");
-      log("$method REQUEST TO : " + ApiConfig.BASE_URL + url.toString());
+      log("$method REQUEST TO : " + ApiConfig.authority + url.toString());
       log("Status : " + res.statusCode.toString());
       log("Headers : " + headers.toString());
       if (body != null) {

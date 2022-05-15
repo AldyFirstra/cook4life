@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:tugas_akhir/app/data/api/network.dart';
 
 import '../../models/user.dart';
@@ -10,7 +9,7 @@ class AuthServices {
   static final AuthServices _instance = AuthServices._();
   static AuthServices get instance => _instance;
 
-  final auth = '/google_sign_in';
+  final auth = '/api/google_sign_in';
 
   Future<User?> signIn(
       {required String email,

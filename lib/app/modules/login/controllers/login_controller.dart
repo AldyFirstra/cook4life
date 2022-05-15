@@ -1,26 +1,12 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tugas_akhir/app/data/models/user.dart';
 import 'package:tugas_akhir/app/data/repository/auth_repository.dart';
-import 'package:tugas_akhir/app/data/utils/service_preferences.dart';
 import 'package:tugas_akhir/app/extra/widget.dart';
-import 'package:tugas_akhir/app/global/controllers/app_controller.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
-  @override
-  void onReady() {
-    var user = PreferenceService.instance.getString('user');
-    if (user != null) {
-      Get.find<AppController>().user = User.fromMap(json.decode(user));
-      Get.offAllNamed(Routes.HOME_NAVBAR);
-    }
-    super.onReady();
-  }
-
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',

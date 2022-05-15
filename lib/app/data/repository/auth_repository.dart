@@ -11,14 +11,14 @@ class AuthRepository {
   AuthRepository._();
   static final AuthRepository _instance = AuthRepository._();
   static AuthRepository get instance => _instance;
-  final _authServices = AuthServices.instance;
+  final _authRepository = AuthServices.instance;
 
   Future<User?> signIn(
       {required String email,
       required String foto,
       required String password,
       required String name}) async {
-    var response = await _authServices.signIn(
+    var response = await _authRepository.signIn(
         email: email, foto: foto, password: password, name: name);
     if (response != null) {
       PreferenceService.instance

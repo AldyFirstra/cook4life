@@ -51,6 +51,7 @@ class HomeView extends GetView<HomeController> {
                     Container(
                       width: 70,
                       height: 70,
+                      clipBehavior: Clip.hardEdge,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(70 / 2),
                         color: Colors.amber,
@@ -63,6 +64,7 @@ class HomeView extends GetView<HomeController> {
                           ),
                         ],
                       ),
+                      child: Image.network(controller.app.user?.foto ?? ''),
                     ),
                   ],
                 ),
@@ -142,34 +144,55 @@ class HomeView extends GetView<HomeController> {
                 ),
                 SizedBox(
                   height: 70,
-                  child: ListView.builder(
-                    physics: const BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Container(
-                          width: 70,
-                          height: 70,
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.amber,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black12,
-                                blurRadius: 4.0,
-                                spreadRadius: 0.0,
-                                offset: Offset(1.0, 3.0),
-                              ),
-                            ],
+                  child: controller.kategori.obx(
+                      (state) => ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: state!.length,
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Container(
+                                  clipBehavior: Clip.hardEdge,
+                                  width: 70,
+                                  height: 70,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.amber,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black12,
+                                        blurRadius: 4.0,
+                                        spreadRadius: 0.0,
+                                        offset: Offset(1.0, 3.0),
+                                      ),
+                                    ],
+                                  ),
+                                  child: Image.network(state[index].foto),
+                                ),
+                              );
+                            },
                           ),
-                        ),
-                      );
-                    },
-                  ),
+                      onLoading: ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: 10,
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: AspectRatio(
+                                aspectRatio: 1,
+                                child: CircularProgressIndicator()),
+                          );
+                        },
+                      ),
+                      onError: (message) => Center(
+                            child: Text(message!),
+                          )),
                 ),
                 const SizedBox(
                   height: 10,

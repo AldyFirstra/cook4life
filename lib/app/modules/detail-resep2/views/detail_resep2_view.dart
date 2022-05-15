@@ -28,144 +28,242 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
         padding: const EdgeInsets.all(15),
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Bahan - bahan",
-                style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: Get.width,
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 3,
-                  itemBuilder: (context, index) => Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      margin: const EdgeInsets.only(
-                        bottom: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 4.0,
-                            spreadRadius: 0.0,
-                            offset: Offset(1.0, 2.0),
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Bahan - bahan",
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: Get.width,
+                  child: Obx(
+                    () => ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.bahanCount,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          margin: const EdgeInsets.only(
+                            bottom: 5,
                           ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: Get.width,
-                            height: 70,
-                            padding: const EdgeInsets.all(15),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: TextField(
-                              autocorrect: false,
-                              decoration: InputDecoration.collapsed(
-                                hintText: "Masukkan bahan",
-                                hintStyle: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                    color: Colors.amber,
-                                  ),
-                                ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(1.0, 2.0),
                               ),
-                              style: GoogleFonts.poppins(),
-                            ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            width: Get.width,
-                            height: 70,
-                            padding: const EdgeInsets.all(15),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: TextField(
-                              autocorrect: false,
-                              decoration: InputDecoration.collapsed(
-                                hintText: "Masukkan harga bahan",
-                                hintStyle: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                    color: Colors.amber,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: controller.textController[index]
+                                    ?['nama'],
+                                autocorrect: false,
+                                validator: (val) {
+                                  if (val?.isEmpty ?? true) {
+                                    return "Nama Bahan masakan tidak boleh kosong";
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  hintText: "Masukkan bahan",
+                                  hintStyle: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      color: Colors.amber,
+                                    ),
                                   ),
+                                  filled: true,
+                                  fillColor: Colors.grey[200],
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
                                 ),
+                                style: GoogleFonts.poppins(),
                               ),
-                              style: GoogleFonts.poppins(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                          Container(
-                            width: Get.width,
-                            height: 70,
-                            padding: const EdgeInsets.all(15),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: TextField(
-                              autocorrect: false,
-                              decoration: InputDecoration.collapsed(
-                                hintText: "Masukkan tempat beli bahan",
-                                hintStyle: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                    color: Colors.amber,
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: controller.textController[index]
+                                    ?['harga'],
+                                autocorrect: false,
+                                validator: (val) {
+                                  if (val?.isEmpty ?? true) {
+                                    return "Harga bahan masakan tidak boleh kosong";
+                                  }
+                                  return null;
+                                },
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: "Masukkan harga bahan",
+                                  hintStyle: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      color: Colors.amber,
+                                    ),
                                   ),
+                                  filled: true,
+                                  fillColor: Colors.grey[200],
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
                                 ),
+                                style: GoogleFonts.poppins(),
                               ),
-                              style: GoogleFonts.poppins(),
-                            ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                autocorrect: false,
+                                onTap: () {
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                  controller.pilihToko(index);
+                                },
+                                controller: controller.textController[index]
+                                    ?['toko'],
+                                validator: (val) {
+                                  if (val?.isEmpty ?? true) {
+                                    return "Tempat beli bahan masakan tidak boleh kosong";
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(
+                                  suffixIcon: Container(
+                                      margin: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                          color: Colors.amber,
+                                          borderRadius:
+                                              BorderRadius.circular(12)),
+                                      child: const Icon(Icons.location_on)),
+                                  hintText: "Masukkan tempat beli bahan",
+                                  hintStyle: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.grey[200],
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                ),
+                                style: GoogleFonts.poppins(),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              index == controller.bahanCount - 1 && index != 0
+                                  ? GestureDetector(
+                                      onTap: () => controller.kurangBahan(),
+                                      child: Container(
+                                        height: 50,
+                                        width: Get.width,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          "Hapus Bahan",
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink()
+                            ],
                           ),
-                          const SizedBox(
-                            height: 15,
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              GestureDetector(
-                child: Container(
-                  height: 50,
-                  width: Get.width,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    "Berikutnya",
-                    style: GoogleFonts.poppins(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () => controller.tambahBahan(),
+                  child: Container(
+                    height: 50,
+                    width: Get.width,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      "Tambah Bahan",
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  child: Container(
+                    height: 50,
+                    width: Get.width,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      "Berikutnya",
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

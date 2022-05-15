@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'package:tugas_akhir/app/data/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tugas_akhir/app/global/bindings/app_binding.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
+import 'package:tugas_akhir/app/data/utils/service_preferences.dart';
+import 'package:tugas_akhir/app/global/controllers/app_controller.dart';
 
 import 'app/data/utils/service_preferences.dart';
 
@@ -26,9 +30,21 @@ class MyApp extends StatelessWidget {
       // initialRoute: AppPages.Introduction,
       initialRoute: PreferenceService.getFirst() != "untrue"
           ? AppPages.INTRODUCTION
-          : AppPages.INITIAL,
+          : getInitialRoute(),
       defaultTransition: Transition.fadeIn,
       initialBinding: AppBinding(),
     );
+  }
+
+  String getInitialRoute() {
+    var user = PreferenceService.instance.getString('user');
+    if (user != null) {
+      Get.put<AppController>(
+        AppController(),
+      ).user = User.fromMap(json.decode(user));
+      return AppPages.HOME;
+    } else {
+      return AppPages.INITIAL;
+    }
   }
 }

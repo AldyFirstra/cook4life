@@ -53,83 +53,104 @@ class TambahResepView extends GetView<TambahResepController> {
                 ],
               ),
               const SizedBox(
-                height: 30,
-              ),
-              Container(
-                padding: const EdgeInsets.all(15),
-                height: 50,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey[100],
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black26,
-                      blurRadius: 4.0,
-                      spreadRadius: 0.0,
-                      offset: Offset(1.0, 2.0),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        autocorrect: false,
-                        decoration: InputDecoration.collapsed(
-                          hintText: "Cari bahan",
-                          hintStyle: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                        style: GoogleFonts.poppins(),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.search,
-                      color: Colors.amber,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
                 height: 35,
               ),
-              GridView.builder(
-                itemCount: 12,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Get.toNamed(Routes.DETAIL_RESEP),
-                    child: Container(
-                      height: 100,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 4.0,
-                            spreadRadius: 0.0,
-                            offset: Offset(1.0, 3.0),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(10),
+              controller.obx(
+                  (state) => GridView.builder(
+                        itemCount: state!.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                        ),
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => Get.toNamed(Routes.DETAIL_RESEP,
+                                arguments: state[index]),
+                            child: Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 4.0,
+                                    spreadRadius: 0.0,
+                                    offset: Offset(1.0, 3.0),
+                                  ),
+                                ],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Image.network(state[index].foto),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 2),
+                                        decoration: const BoxDecoration(
+                                            color: Colors.amberAccent,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(12),
+                                                topRight: Radius.circular(12))),
+                                        child: Text(
+                                          state[index].nama,
+                                          textAlign: TextAlign.center,
+                                        )),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                       ),
+                  onLoading: GridView.builder(
+                    itemCount: 12,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shrinkWrap: true,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20,
                     ),
-                  );
-                },
-              ),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => Get.toNamed(Routes.DETAIL_RESEP),
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black12,
+                                blurRadius: 4.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(1.0, 3.0),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  onError: (message) => Center(
+                        child: Text(message!),
+                      ))
             ],
           ),
         ),

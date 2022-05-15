@@ -17,6 +17,8 @@ abstract class Routes {
   static const CATEGORY_HASIL = _Paths.CATEGORY_HASIL;
   static const DETAIL_MASAKAN = _Paths.DETAIL_MASAKAN;
   static const HOME = _Paths.HOME_NAVBAR + _Paths.HOME;
+  static const LIST_TOKO = _Paths.LIST_TOKO;
+  static const TAMBAH_TOKO = _Paths.TAMBAH_TOKO;
 }
 
 abstract class _Paths {
@@ -33,4 +35,6 @@ abstract class _Paths {
   static const CATEGORY_HASIL = '/category-hasil';
   static const DETAIL_MASAKAN = '/detail-masakan';
   static const HOME = '/home';
+  static const LIST_TOKO = '/list-toko';
+  static const TAMBAH_TOKO = '/tambah-toko';
 }
