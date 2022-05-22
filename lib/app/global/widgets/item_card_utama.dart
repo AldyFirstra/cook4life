@@ -3,9 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ItemCardUtama extends StatelessWidget {
   final String nama;
-  final String foto;
+  final String? foto;
 
-  const ItemCardUtama(this.nama, this.foto, {Key? key}) : super(key: key);
+  const ItemCardUtama(
+    this.nama, {
+    Key? key,
+    this.foto,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +40,11 @@ class ItemCardUtama extends StatelessWidget {
             margin: const EdgeInsets.only(top: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              image:
-                  DecorationImage(image: NetworkImage(foto), fit: BoxFit.cover),
+              color: foto != null ? null : Colors.grey,
+              image: foto != null
+                  ? DecorationImage(
+                      image: NetworkImage(foto!), fit: BoxFit.cover)
+                  : null,
             ),
           ),
           const SizedBox(
@@ -59,10 +66,12 @@ class ItemCardUtama extends StatelessWidget {
             height: 20,
             margin: const EdgeInsets.only(bottom: 20),
             alignment: Alignment.bottomRight,
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.more_horiz),
-            ),
+            child: foto != null
+                ? IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.more_horiz),
+                  )
+                : const SizedBox.shrink(),
           ),
         ],
       ),

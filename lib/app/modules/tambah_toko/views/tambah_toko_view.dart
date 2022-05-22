@@ -25,6 +25,7 @@ class TambahTokoView extends GetView<TambahTokoController> {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: controller.formKey,
           child: Container(
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.all(12),
@@ -44,9 +45,10 @@ class TambahTokoView extends GetView<TambahTokoController> {
               children: [
                 TextFormField(
                   autocorrect: false,
+                  controller: controller.namaToko,
                   validator: (val) {
                     if (val?.isEmpty ?? true) {
-                      return "Nama Bahan masakan tidak boleh kosong";
+                      return "Nama Toko tidak boleh kosong";
                     }
                     return null;
                   },
@@ -81,9 +83,10 @@ class TambahTokoView extends GetView<TambahTokoController> {
                 ),
                 TextFormField(
                   autocorrect: false,
+                  controller: controller.alamatToko,
                   validator: (val) {
                     if (val?.isEmpty ?? true) {
-                      return "Harga bahan masakan tidak boleh kosong";
+                      return "Alamat tidak boleh kosong";
                     }
                     return null;
                   },
@@ -113,6 +116,7 @@ class TambahTokoView extends GetView<TambahTokoController> {
                 ),
                 TextFormField(
                   autocorrect: false,
+                  controller: controller.latlong,
                   onTap: () {
                     FocusScope.of(context).requestFocus(FocusNode());
                     Get.toNamed(Routes.TOKO_MAPS)!.then((value) {
@@ -120,6 +124,8 @@ class TambahTokoView extends GetView<TambahTokoController> {
                         if (value is LatLng) {
                           controller.latitude.value = value.latitude;
                           controller.longitude.value = value.longitude;
+                          controller.latlong.text =
+                              "${value.latitude}, ${value.longitude}";
                         }
                       }
                     });
@@ -164,6 +170,7 @@ class TambahTokoView extends GetView<TambahTokoController> {
                 ),
                 TextFormField(
                   autocorrect: false,
+                  controller: controller.nomerTelpon,
                   validator: (val) {
                     if (val?.isEmpty ?? true) {
                       return "Tempat beli bahan masakan tidak boleh kosong";
@@ -194,6 +201,7 @@ class TambahTokoView extends GetView<TambahTokoController> {
                   height: 24,
                 ),
                 GestureDetector(
+                  onTap: () => controller.tambahToko(),
                   child: Container(
                     height: 50,
                     width: Get.width,

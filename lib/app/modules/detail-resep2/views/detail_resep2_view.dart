@@ -69,7 +69,7 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                           child: Column(
                             children: [
                               TextFormField(
-                                controller: controller.textController[index]
+                                controller: controller.bahanController[index]
                                     ?['nama'],
                                 autocorrect: false,
                                 validator: (val) {
@@ -107,7 +107,7 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                                 height: 15,
                               ),
                               TextFormField(
-                                controller: controller.textController[index]
+                                controller: controller.bahanController[index]
                                     ?['harga'],
                                 autocorrect: false,
                                 validator: (val) {
@@ -152,7 +152,7 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                                       .requestFocus(FocusNode());
                                   controller.pilihToko(index);
                                 },
-                                controller: controller.textController[index]
+                                controller: controller.bahanController[index]
                                     ?['toko'],
                                 validator: (val) {
                                   if (val?.isEmpty ?? true) {
@@ -246,7 +246,152 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                 const SizedBox(
                   height: 20,
                 ),
+                Text(
+                  "Langkah - langkah",
+                  style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  width: Get.width,
+                  child: Obx(
+                    () => ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.langkahCount,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(5),
+                          margin: const EdgeInsets.only(
+                            bottom: 5,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4.0,
+                                spreadRadius: 0.0,
+                                offset: Offset(1.0, 2.0),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: controller.langkahController[index]
+                                    ?['deskripsi'],
+                                autocorrect: false,
+                                validator: (val) {
+                                  if (val?.isEmpty ?? true) {
+                                    return "Deskripsi langkah masakan tidak boleh kosong";
+                                  }
+                                  return null;
+                                },
+                                maxLines: 3,
+                                decoration: InputDecoration(
+                                  hintText: "Langkah pembuatan",
+                                  hintStyle: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.grey[200],
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                ),
+                                style: GoogleFonts.poppins(),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              TextFormField(
+                                controller: controller.langkahController[index]
+                                    ?['waktu'],
+                                autocorrect: false,
+                                validator: (val) {
+                                  if (val?.isEmpty ?? true) {
+                                    return "waktu masakan tidak boleh kosong";
+                                  }
+                                  return null;
+                                },
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: "Masukkan waktu langkah",
+                                  hintStyle: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      color: Colors.amber,
+                                    ),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.grey[200],
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.transparent),
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                  border: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(12))),
+                                ),
+                                style: GoogleFonts.poppins(),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                              index == controller.langkahCount - 1 && index != 0
+                                  ? GestureDetector(
+                                      onTap: () => controller.kurangLangkah(),
+                                      child: Container(
+                                        height: 50,
+                                        width: Get.width,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          color: Colors.red,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Text(
+                                          "Hapus Langkah",
+                                          style: GoogleFonts.poppins(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox.shrink()
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 GestureDetector(
+                  onTap: () => controller.tambahLangkah(),
                   child: Container(
                     height: 50,
                     width: Get.width,
@@ -256,7 +401,27 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Text(
-                      "Berikutnya",
+                      "Tambah Langkah",
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                GestureDetector(
+                  onTap: () => controller.tambahResep(),
+                  child: Container(
+                    height: 50,
+                    width: Get.width,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      "Simpan",
                       style: GoogleFonts.poppins(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),

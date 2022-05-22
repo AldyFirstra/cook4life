@@ -70,8 +70,10 @@ class CategoryView extends GetView<CategoryController> {
                           ),
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: () => Get.toNamed(Routes.DETAIL_RESEP,
-                                  arguments: state[index]),
+                              onTap: () => Get.toNamed(Routes.CATEGORY_HASIL,
+                                  arguments: {
+                                    'kategori_id': state[index].id.toString()
+                                  }),
                               child: Container(
                                 height: 100,
                                 width: 100,

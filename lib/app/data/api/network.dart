@@ -1,15 +1,19 @@
 // ignore_for_file: constant_identifier_names
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 export 'package:http/http.dart';
 import 'package:get/get.dart';
+import 'package:tugas_akhir/app/data/utils/service_preferences.dart';
+import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 import '../../global/controllers/app_controller.dart';
 
 class ApiConfig {
   static const authority = 'cook4life.takhruj.com';
   static const BASE_URL = 'https://cook4life.takhruj.com/';
+  static const BASE_URL_STORAGE = 'https://cook4life-storage.takhruj.com/';
 }
 
 class API {
@@ -23,6 +27,31 @@ class API {
         Uri.https(ApiConfig.authority, url, queryParameters),
         headers: headers);
     networkLogging(method: "GET", url: url, headers: headers, res: res);
+    handleUnauth(res);
+    return res;
+  }
+
+  static Future<http.Response> mulipartRequest(String url, String method,
+      {Map<String, String>? headers,
+      Map<String, dynamic>? body,
+      Map<String, File>? file,
+      Map<String, dynamic>? queryParameters}) async {
+    var request = http.MultipartRequest(
+        method, Uri.https(ApiConfig.authority, url, queryParameters));
+    file?.forEach((key, value) {
+      request.files.add(http.MultipartFile(
+          key, value.readAsBytes().asStream(), value.lengthSync(),
+          filename: value.path.split('/').last));
+    });
+    body?.forEach((key, value) {
+      request.fields[key] = value.toString();
+    });
+    _addDefaultHeaders(headers).forEach((key, value) {
+      request.headers[key] = value;
+    });
+    var res = await http.Response.fromStream(await request.send());
+    networkLogging(method: method, url: url, headers: headers, res: res);
+    handleUnauth(res);
     return res;
   }
 
@@ -44,6 +73,7 @@ class API {
         body: body,
         encoding: encoding,
         res: res);
+    handleUnauth(res);
     return res;
   }
 
@@ -65,6 +95,7 @@ class API {
         body: body,
         encoding: encoding,
         res: res);
+    handleUnauth(res);
     return res;
   }
 
@@ -86,6 +117,7 @@ class API {
         body: body,
         encoding: encoding,
         res: res);
+    handleUnauth(res);
     return res;
   }
 
@@ -97,15 +129,23 @@ class API {
         Uri.https(ApiConfig.authority, url, queryParameters),
         headers: headers);
     networkLogging(method: "DELETE", url: url, headers: headers, res: res);
+    handleUnauth(res);
     return res;
   }
 
-  static _addDefaultHeaders(Map<String, String>? headers) {
+  static Map<String, String> _addDefaultHeaders(Map<String, String>? headers) {
     headers ??= {};
     headers['Authorization'] =
         'Bearer ${Get.find<AppController>().user?.token ?? ""}';
     headers['Accept'] = 'application/json';
     return headers;
+  }
+
+  static void handleUnauth(http.Response res) {
+    if (res.body.toString().contains('Unauthenticated')) {
+      Get.offAllNamed(Routes.LOGIN);
+      PreferenceService.instance.clear();
+    }
   }
 
   static void networkLogging(

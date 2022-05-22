@@ -18,7 +18,7 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.amber),
         title: Text(
-          "Nama Masakan",
+          controller.resep.kategori!.nama,
           style: GoogleFonts.poppins(
               color: Colors.amber, fontSize: 18, fontWeight: FontWeight.bold),
         ),
@@ -32,8 +32,8 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
               height: 300,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
-                image: const DecorationImage(
-                  image: NetworkImage("https://picsum.photos/300"),
+                image: DecorationImage(
+                  image: NetworkImage(controller.resep.foto),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -51,7 +51,7 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Nama Masakan",
+                        controller.resep.nama,
                         style: GoogleFonts.poppins(
                           color: Colors.amber,
                           fontWeight: FontWeight.bold,
@@ -72,14 +72,16 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const CircleAvatar(
+                      CircleAvatar(
                         radius: 20,
+                        backgroundImage:
+                            NetworkImage(controller.resep.user!.foto),
                       ),
                       const SizedBox(
                         width: 10,
                       ),
                       Text(
-                        "Nama Pengguna",
+                        controller.resep.user!.name,
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -94,7 +96,13 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          "Rp. 999999",
+                          "Rp " +
+                              List.generate(
+                                      controller.resep.bahan!.length,
+                                      (index) => controller
+                                          .resep.bahan![index].hargaBahan)
+                                  .reduce((value, element) => value + element)
+                                  .toString(),
                           style: GoogleFonts.poppins(
                             color: Colors.amber,
                             fontWeight: FontWeight.bold,
@@ -125,7 +133,7 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                         height: 5,
                       ),
                       Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec dignissim purus. Vivamus aliquam ante a quam interdum faucibus. Integer lobortis enim aliquet, ornare erat eget, porta sapien. Nullam malesuada quam sit amet lacus elementum iaculis. Praesent mattis leo ut nisi dapibus, sed accumsan leo vulputate.",
+                        controller.resep.deskripsi,
                         style: GoogleFonts.poppins(
                           color: Colors.black,
                           fontSize: 12,
@@ -140,6 +148,7 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                         height: 10,
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "Bahan - bahan",
@@ -148,6 +157,98 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                          for (var i = 0;
+                              i < controller.resep.bahan!.length;
+                              i++)
+                            Card(
+                              child: ListTile(
+                                leading: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "${i + 1}",
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                title: Text(
+                                  controller.resep.bahan![i].namaBahan,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  "Rp " +
+                                      controller.resep.bahan![i].hargaBahan
+                                          .toString(),
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                trailing: const Icon(Icons.location_on),
+                              ),
+                            )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Pemisah(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Langkah - langkah",
+                            style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          for (var i = 0;
+                              i < controller.resep.langkah!.length;
+                              i++)
+                            Card(
+                              child: ListTile(
+                                leading: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "${i + 1}",
+                                      textAlign: TextAlign.center,
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                title: Text(
+                                  controller.resep.langkah![i].waktu
+                                          .toString() +
+                                      " Menit",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  controller.resep.langkah![i].deskripsi,
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            )
                         ],
                       )
                     ],

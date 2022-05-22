@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,7 +33,7 @@ class DetailResepController extends GetxController {
       } else {
         resep.deskripsi = deskripsiMasakanController.text;
         resep.nama = namaMakasakanController.text;
-        resep.foto = image.value?.path;
+        resep.foto = File(image.value!.path);
         resep.kategori = argument;
         Get.toNamed(Routes.DETAIL_RESEP2, arguments: resep);
       }

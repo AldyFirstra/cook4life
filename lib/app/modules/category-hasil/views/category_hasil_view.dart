@@ -35,25 +35,44 @@ class CategoryHasilView extends GetView<CategoryHasilController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(10),
-                  shrinkWrap: true,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                    childAspectRatio: MediaQuery.of(context).size.width /
-                        (MediaQuery.of(context).size.height / 1.4),
+                controller.obx(
+                  (state) => GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(10),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: MediaQuery.of(context).size.width /
+                          (MediaQuery.of(context).size.height / 1.4),
+                    ),
+                    itemCount: state!.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => Get.toNamed(Routes.DETAIL_MASAKAN,
+                            arguments: state[index]),
+                        child: ItemCardGrid(state[index].nama,
+                            foto: state[index].foto),
+                      );
+                    },
                   ),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Get.toNamed(Routes.DETAIL_MASAKAN),
-                      child: ItemCardGrid(
-                          "nama $index", "https://picsum.photos/200"),
-                    );
-                  },
+                  onLoading: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(10),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: MediaQuery.of(context).size.width /
+                          (MediaQuery.of(context).size.height / 1.4),
+                    ),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return const ItemCardGrid("Memuat");
+                    },
+                  ),
                 ),
                 const SizedBox(
                   height: 30,

@@ -118,7 +118,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.TOKO_MAPS,
-      page: () => TokoMapsView(),
+      page: () => const TokoMapsView(),
       binding: TokoMapsBinding(),
     ),
   ];

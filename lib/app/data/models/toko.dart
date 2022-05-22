@@ -4,7 +4,7 @@ import 'package:tugas_akhir/app/data/models/user.dart';
 
 class Toko {
   int id;
-  User user;
+  User? user;
   String nama_toko;
   String alamat;
   String latitude;
@@ -28,6 +28,6 @@ class Toko {
         longitude: map['longitude'],
         nama_toko: map['nama_toko'],
         no_telp: map['no_telp'],
-        user: User.fromMap(map['user']));
+        user: map['user'] != null ? User.fromMap(map['user']) : null);
   }
 }
