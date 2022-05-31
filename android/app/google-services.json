@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "181870268939-9cvjmccetdp9eqhodb87en845nfi6ph2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tugas_akhir",
+            "certificate_hash": "b8600852dc2e4457de5bbf5ec99a62daf0b0e28c"
+          }
+        },
+        {
           "client_id": "181870268939-9mhj9jkj4lq00uuuu1jfr5i3s372lmjp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
