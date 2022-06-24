@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tugas_akhir/app/global/widgets/item_card_grid.dart';
-import 'package:tugas_akhir/app/global/widgets/item_card_utama.dart';
 import 'package:tugas_akhir/app/modules/home/controllers/resep_controller.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
@@ -142,7 +141,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   controller.resepRekom.obx(
                       (state) => SizedBox(
-                            height: 310,
+                            height: 270,
                             child: ListView.builder(
                               itemCount: state!.length,
                               scrollDirection: Axis.horizontal,
@@ -157,7 +156,18 @@ class HomeView extends GetView<HomeController> {
                                       .then((value) =>
                                           Get.find<RekomendasiResep>()
                                               .getListResep()),
-                                  child: ItemCardUtama(resep: state[index]),
+                                  child: Container(
+                                    margin: const EdgeInsets.only(right: 12),
+                                    child: AspectRatio(
+                                        aspectRatio:
+                                            MediaQuery.of(context).size.width /
+                                                (MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    1.5),
+                                        child:
+                                            ItemCardGrid(resep: state[index])),
+                                  ),
                                 );
                               },
                             ),
@@ -259,7 +269,7 @@ class HomeView extends GetView<HomeController> {
                               childAspectRatio: MediaQuery.of(context)
                                       .size
                                       .width /
-                                  (MediaQuery.of(context).size.height / 1.4),
+                                  (MediaQuery.of(context).size.height / 1.375),
                             ),
                             itemBuilder: (context, index) {
                               return InkWell(

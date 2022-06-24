@@ -30,6 +30,14 @@
           }
         },
         {
+          "client_id": "181870268939-9063664reb1k1d2dakr5gqlnar5chvpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.snepy.cook4life",
+            "certificate_hash": "b8600852dc2e4457de5bbf5ec99a62daf0b0e28c"
+          }
+        },
+        {
           "client_id": "181870268939-l1oa73l0ah179d9fv7pqtc2lm3cjdmd2.apps.googleusercontent.com",
           "client_type": 3
         }

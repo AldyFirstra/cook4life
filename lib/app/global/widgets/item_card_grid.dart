@@ -19,7 +19,7 @@ class ItemCardGrid extends StatelessWidget {
     return Container(
       width: 150,
       alignment: Alignment.center,
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -34,37 +34,40 @@ class ItemCardGrid extends StatelessWidget {
       ),
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            height: 150,
-            width: 150,
-            margin: const EdgeInsets.only(top: 15),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: resep != null ? null : Colors.grey,
-              image: resep != null
-                  ? DecorationImage(
-                      image: NetworkImage(resep!.foto), fit: BoxFit.cover)
-                  : null,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                resep?.nama ?? "Memuat",
-                style: GoogleFonts.poppins(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.amber,
-                    fontSize: 12,
+              Expanded(
+                child: Container(
+                  height: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: resep != null ? null : Colors.grey,
+                    image: resep != null
+                        ? DecorationImage(
+                            image: NetworkImage(resep!.foto), fit: BoxFit.cover)
+                        : null,
                   ),
                 ),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Text(
+            resep?.nama ?? "Memuat",
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.poppins(
+              textStyle: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.amber,
+                fontSize: 12,
+              ),
+            ),
           ),
           const Spacer(),
           resep != null

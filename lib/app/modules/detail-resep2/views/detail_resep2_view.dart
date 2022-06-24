@@ -67,7 +67,16 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                             ],
                           ),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Bahan ke-" + (index + 1).toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                               TextFormField(
                                 controller: controller.bahanController[index]
                                     ?['nama'],
@@ -280,7 +289,16 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                             ],
                           ),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Langkah ke-" + (index + 1).toString(),
+                                  style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                               TextFormField(
                                 controller: controller.langkahController[index]
                                     ?['deskripsi'],

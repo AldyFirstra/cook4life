@@ -161,7 +161,10 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                             value: "hapus",
                             child: Row(
                               children: const [
-                                Icon(Icons.delete),
+                                Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
                                 SizedBox(
                                   width: 12,
                                 ),
@@ -253,11 +256,14 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    state.user!.name,
-                    style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                  SizedBox(
+                    width: Get.width * 0.6,
+                    child: Text(
+                      state.user!.name,
+                      style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -351,14 +357,9 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                               ],
                             ),
                             title: Text(
-                              state.bahan![i].namaBahan,
-                              style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            ),
-                            subtitle: Text(
-                              "Rp " + state.bahan![i].hargaBahan.toString(),
+                              state.bahan![i].namaBahan +
+                                  ", Rp " +
+                                  state.bahan![i].hargaBahan.toString(),
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 fontSize: 12,
