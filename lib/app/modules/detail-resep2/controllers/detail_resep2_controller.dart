@@ -1,11 +1,11 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:tugas_akhir/app/data/models/toko.dart';
 import 'package:tugas_akhir/app/data/repository/resep_repository.dart';
 import 'package:tugas_akhir/app/extra/widget.dart';
+import 'package:tugas_akhir/app/modules/home/controllers/resep_controller.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 import '../../../data/models/resep.dart';
@@ -16,7 +16,41 @@ class DetailResep2Controller extends GetxController {
   final _langkahCount = 1.obs;
   int get langkahCount => _langkahCount.value;
 
-  ResepInput resepInput = Get.arguments;
+  ResepInput resepInput =
+      Get.arguments is ResepInput ? Get.arguments : Get.arguments[1];
+
+  Resep? resep = Get.arguments is List ? Get.arguments[0] : null;
+
+  @override
+  void onInit() {
+    if (resep != null) {
+      toko.clear();
+      for (var i = 0; i < resep!.bahan!.length; i++) {
+        bahanController[i] = {
+          'nama': TextEditingController(text: resep!.bahan![i].namaBahan),
+          'harga': TextEditingController(
+              text: resep!.bahan![i].hargaBahan.toString()),
+          'toko': TextEditingController(text: resep!.bahan![i].toko!.nama_toko)
+        };
+        toko.add(resep!.bahan![i].toko);
+        if (i > 0) {
+          _bahanCount.value++;
+        }
+      }
+      for (var i = 0; i < resep!.langkah!.length; i++) {
+        langkahController[i] = {
+          'deskripsi':
+              TextEditingController(text: resep!.langkah![i].deskripsi),
+          'waktu':
+              TextEditingController(text: resep!.langkah![i].waktu.toString())
+        };
+        if (i > 0) {
+          _langkahCount.value++;
+        }
+      }
+    }
+    super.onInit();
+  }
 
   final formKey = GlobalKey<FormState>();
 
@@ -116,6 +150,7 @@ class DetailResep2Controller extends GetxController {
                       'waktu': langkahController[index]?['waktu']!.text
                     }));
         if (res != null) {
+          Get.find<ResepController>().getListResep();
           Get.until((route) => Get.currentRoute == Routes.HOME_NAVBAR);
           Get.snackbar("Yess!", "Resep Berhasil ditambah");
         } else {
@@ -124,6 +159,43 @@ class DetailResep2Controller extends GetxController {
       }
     } catch (e, stackTrace) {
       Get.snackbar("Oops!", "Resep gagal ditambah");
+      log(e.toString(), stackTrace: stackTrace);
+    }
+  }
+
+  Future<void> updateResep() async {
+    try {
+      if (formKey.currentState!.validate()) {
+        Custom.loading();
+        var res = await ResepRepository.instance.updateResep(
+            id: resep!.id,
+            nama_resep: resepInput.nama!,
+            kategori_id: resepInput.kategori!.id,
+            deskripsi: resepInput.deskripsi!,
+            foto: resepInput.foto,
+            bahan: List.generate(
+                bahanCount,
+                (index) => {
+                      'toko_id': toko[index]!.id,
+                      'nama_bahan': bahanController[index]?['nama']!.text,
+                      'harga': bahanController[index]?['harga']!.text,
+                    }),
+            langkah: List.generate(
+                langkahCount,
+                (index) => {
+                      'deskripsi': langkahController[index]?['deskripsi']!.text,
+                      'waktu': langkahController[index]?['waktu']!.text
+                    }));
+        if (res != null) {
+          Get.find<ResepController>().getListResep();
+          Get.until((route) => Get.currentRoute == Routes.HOME_NAVBAR);
+          Get.snackbar("Yess!", "Resep Berhasil diupdate");
+        } else {
+          Get.snackbar("Oops!", "Resep gagal diupdate");
+        }
+      }
+    } catch (e, stackTrace) {
+      Get.snackbar("Oops!", "Resep gagal diupdate");
       log(e.toString(), stackTrace: stackTrace);
     }
   }

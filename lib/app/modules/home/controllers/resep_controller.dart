@@ -23,6 +23,7 @@ class ResepController extends GetxController with StateMixin<List<Resep>?> {
             change([], status: RxStatus.empty());
           } else {
             current.addAll(value);
+            Get.find<RekomendasiResep>().getListResep();
             change(value, status: RxStatus.success());
           }
         }
@@ -36,19 +37,13 @@ class ResepController extends GetxController with StateMixin<List<Resep>?> {
 class RekomendasiResep extends GetxController with StateMixin<List<Resep>?> {
   List<Resep> current = [];
 
-  @override
-  void onInit() {
-    getListResep();
-    super.onInit();
-  }
-
   void getListResep() {
     change(null, status: RxStatus.loading());
     try {
-      ResepRepository.instance.getListRekomendasi().then((value) {
+      ResepRepository.instance.getHistory().then((value) {
         current.clear();
         if (value == null) {
-          change(null, status: RxStatus.error("Terjadi Kesalahan Server"));
+          change([], status: RxStatus.empty());
         } else {
           if (value.isEmpty) {
             change([], status: RxStatus.empty());

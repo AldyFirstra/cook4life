@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tugas_akhir/app/global/widgets/item_card_grid.dart';
+import 'package:tugas_akhir/app/modules/home/controllers/resep_controller.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 import '../controllers/category_hasil_controller.dart';
@@ -36,44 +37,55 @@ class CategoryHasilView extends GetView<CategoryHasilController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 controller.obx(
-                  (state) => GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(10),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: MediaQuery.of(context).size.width /
-                          (MediaQuery.of(context).size.height / 1.4),
+                    (state) => GridView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          padding: const EdgeInsets.all(10),
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            childAspectRatio:
+                                MediaQuery.of(context).size.width /
+                                    (MediaQuery.of(context).size.height / 1.4),
+                          ),
+                          itemCount: state!.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () => Get.toNamed(Routes.DETAIL_MASAKAN,
+                                      arguments: state[index])!
+                                  .then((value) => Get.find<RekomendasiResep>()
+                                      .getListResep()),
+                              child: ItemCardGrid(resep: state[index]),
+                            );
+                          },
+                        ),
+                    onLoading: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: const EdgeInsets.all(10),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: MediaQuery.of(context).size.width /
+                            (MediaQuery.of(context).size.height / 1.4),
+                      ),
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return const ItemCardGrid();
+                      },
                     ),
-                    itemCount: state!.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => Get.toNamed(Routes.DETAIL_MASAKAN,
-                            arguments: state[index]),
-                        child: ItemCardGrid(state[index].nama,
-                            foto: state[index].foto),
-                      );
-                    },
-                  ),
-                  onLoading: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(10),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: MediaQuery.of(context).size.width /
-                          (MediaQuery.of(context).size.height / 1.4),
-                    ),
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return const ItemCardGrid("Memuat");
-                    },
-                  ),
-                ),
+                    onEmpty: SizedBox(
+                      height: Get.height / 2,
+                      child: const Center(
+                        child: Text(
+                          "Tidak ada resep tersedia",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    )),
                 const SizedBox(
                   height: 30,
                 ),

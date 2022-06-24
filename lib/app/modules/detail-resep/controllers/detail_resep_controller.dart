@@ -8,15 +8,22 @@ import 'package:tugas_akhir/app/data/models/resep.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 class DetailResepController extends GetxController {
-  Kategori argument = Get.arguments;
+  Kategori? kategori = Get.arguments is Kategori ? Get.arguments : null;
+  Resep? resep = Get.arguments is Resep ? Get.arguments : null;
   Rx<XFile?> image = Rx(null);
 
-  ResepInput resep = ResepInput();
+  ResepInput resepInput = ResepInput();
 
   final formKey = GlobalKey<FormState>();
 
-  TextEditingController namaMakasakanController = TextEditingController();
-  TextEditingController deskripsiMasakanController = TextEditingController();
+  late TextEditingController namaMakasakanController;
+  late TextEditingController deskripsiMasakanController;
+  @override
+  void onInit() {
+    namaMakasakanController = TextEditingController(text: resep?.nama);
+    deskripsiMasakanController = TextEditingController(text: resep?.deskripsi);
+    super.onInit();
+  }
 
   Future<void> getImageGallery() async {
     image.value = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -28,14 +35,22 @@ class DetailResepController extends GetxController {
 
   void berikutnya() {
     if (formKey.currentState?.validate() ?? false) {
-      if (image.value == null) {
-        Get.snackbar("Oops!", "Gambar tidak boleh kosong");
+      if (resep == null) {
+        if (image.value == null) {
+          Get.snackbar("Oops!", "Gambar tidak boleh kosong");
+        } else {
+          resepInput.deskripsi = deskripsiMasakanController.text;
+          resepInput.nama = namaMakasakanController.text;
+          resepInput.foto = File(image.value!.path);
+          resepInput.kategori = kategori;
+          Get.toNamed(Routes.DETAIL_RESEP2, arguments: resepInput);
+        }
       } else {
-        resep.deskripsi = deskripsiMasakanController.text;
-        resep.nama = namaMakasakanController.text;
-        resep.foto = File(image.value!.path);
-        resep.kategori = argument;
-        Get.toNamed(Routes.DETAIL_RESEP2, arguments: resep);
+        resepInput.deskripsi = deskripsiMasakanController.text;
+        resepInput.nama = namaMakasakanController.text;
+        resepInput.foto = image.value != null ? File(image.value!.path) : null;
+        resepInput.kategori = kategori ?? resep!.kategori;
+        Get.toNamed(Routes.DETAIL_RESEP2, arguments: [resep, resepInput]);
       }
     }
   }

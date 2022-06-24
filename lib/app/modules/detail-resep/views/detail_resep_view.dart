@@ -19,7 +19,7 @@ class DetailResepView extends GetView<DetailResepController> {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.amber),
         title: Text(
-          controller.argument.nama,
+          controller.kategori?.nama ?? controller.resep!.kategori!.nama,
           style: GoogleFonts.poppins(
               color: Colors.amber, fontSize: 18, fontWeight: FontWeight.bold),
         ),
@@ -55,22 +55,24 @@ class DetailResepView extends GetView<DetailResepController> {
                     ),
                     child: Obx(
                       () => controller.image.value == null
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const FaIcon(
-                                  FontAwesomeIcons.images,
-                                  color: Colors.amber,
-                                ),
-                                Text(
-                                  "Tambahkan foto",
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.amber,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                              ],
-                            )
+                          ? controller.resep == null
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const FaIcon(
+                                      FontAwesomeIcons.images,
+                                      color: Colors.amber,
+                                    ),
+                                    Text(
+                                      "Tambahkan foto",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.amber,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Image.network(controller.resep!.foto)
                           : Image.file(File(controller.image.value!.path)),
                     ),
                   ),

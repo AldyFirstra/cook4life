@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:io';
 
 import 'package:tugas_akhir/app/data/api/network.dart';
@@ -13,8 +15,16 @@ class Resep {
   User? user;
   List<Bahan>? bahan;
   List<Langkah>? langkah;
+  List<Komentar> komentar;
   String deskripsi;
   String foto;
+  int like;
+  bool isLiked;
+  int favorite;
+  bool isFav;
+  double meRating;
+  double allRatingCount;
+  List<Rating> allRating;
 
   Resep(
       {required this.id,
@@ -23,10 +33,28 @@ class Resep {
       required this.deskripsi,
       required this.foto,
       required this.user,
+      required this.like,
+      required this.isLiked,
+      required this.favorite,
+      required this.isFav,
+      required this.meRating,
+      required this.allRatingCount,
       this.bahan,
-      this.langkah});
+      this.langkah,
+      this.komentar = const [],
+      required this.allRating});
 
   factory Resep.fromMap(Map map) {
+    int rat = 0;
+    if (map['allrating'] != null) {
+      if (map['allrating'].isNotEmpty) {
+        List listRat = map['allrating'];
+        var allrat =
+            List.generate(listRat.length, (index) => listRat[index]['rating']);
+        rat = allrat.reduce((value, element) => value + element);
+        rat = rat ~/ listRat.length;
+      }
+    }
     return Resep(
       id: map['id'],
       kategori:
@@ -44,6 +72,26 @@ class Resep {
           ? List.generate((map['langkah'] as List).length,
               (index) => Langkah.fromMap(map['langkah'][index]))
           : null,
+      like: map['like_count'] ?? 0,
+      isLiked: map['like_me_count'] == 1,
+      favorite: map['favorit_count'] ?? 0,
+      isFav: map['favorit_me_count'] == 1,
+      komentar: map['komentar'] != null
+          ? List.generate((map['komentar'] as List).length,
+                  (index) => Komentar.fromMap(map['komentar'][index]))
+              .reversed
+              .toList()
+          : [],
+      meRating: map['rating'] != null
+          ? map['rating'].isNotEmpty
+              ? (map['rating'][0]?['rating'] as int).toDouble()
+              : 0
+          : 0,
+      allRatingCount: rat.toDouble(),
+      allRating: map['allrating'] != null
+          ? List.generate((map['allrating'] as List).length,
+              (index) => Rating.fromMap(map['allrating'][index]))
+          : [],
     );
   }
 }
@@ -90,4 +138,48 @@ class ResepInput {
         'deskripsi': deskripsi,
         'foto': foto
       };
+}
+
+class Komentar {
+  int id;
+  User user;
+  int resep_id;
+  String created_at;
+  String komentar;
+
+  Komentar(
+      {required this.created_at,
+      required this.id,
+      required this.komentar,
+      required this.resep_id,
+      required this.user});
+
+  factory Komentar.fromMap(Map map) {
+    return Komentar(
+        id: map['id'],
+        komentar: map['komentar'],
+        resep_id: map['resep_id'],
+        created_at: map['created_at'],
+        user: User.fromMap(map['user']));
+  }
+}
+
+class Rating {
+  int id;
+  User user;
+  int rating;
+  int resep_id;
+
+  Rating(
+      {required this.id,
+      required this.rating,
+      required this.resep_id,
+      required this.user});
+  factory Rating.fromMap(Map map) {
+    return Rating(
+        id: map['id'],
+        rating: map['rating'],
+        resep_id: map['resep_id'],
+        user: User.fromMap(map['user']));
+  }
 }

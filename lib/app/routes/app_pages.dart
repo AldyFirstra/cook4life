@@ -51,7 +51,8 @@ class AppPages {
           HomeBinding(),
           ProfileBinding(),
           CategoryBinding(),
-          TambahResepBinding()
+          TambahResepBinding(),
+          NotifikasiBinding()
         ],
         children: [
           GetPage(

@@ -29,4 +29,6 @@ class AuthRepository {
       return null;
     }
   }
+
+  Future<void> saveFCM(String fcm) => _authRepository.saveFCM(fcm: fcm);
 }

@@ -333,6 +333,7 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   hintText: "Masukkan waktu langkah",
+                                  suffixText: "Menit",
                                   hintStyle: GoogleFonts.poppins(
                                     textStyle: const TextStyle(
                                       color: Colors.amber,
@@ -411,7 +412,9 @@ class DetailResep2View extends GetView<DetailResep2Controller> {
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () => controller.tambahResep(),
+                  onTap: () => controller.resep != null
+                      ? controller.updateResep()
+                      : controller.tambahResep(),
                   child: Container(
                     height: 50,
                     width: Get.width,

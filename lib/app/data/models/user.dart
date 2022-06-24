@@ -4,12 +4,14 @@ class User {
   String email;
   String foto;
   String? token;
+  String fcm;
 
   User(
       {required this.id,
       required this.name,
       required this.email,
       required this.foto,
+      required this.fcm,
       this.token});
 
   factory User.fromMap(Map map) {
@@ -18,7 +20,8 @@ class User {
         name: map['name'],
         email: map['email'],
         foto: map['foto'],
-        token: map['token']);
+        token: map['token'],
+        fcm: map['fcm'] ?? '');
   }
 
   toMap() {
@@ -27,7 +30,8 @@ class User {
       'name': name,
       'email': email,
       'foto': foto,
-      'token': token
+      'token': token,
+      'fcm': fcm
     };
   }
 }

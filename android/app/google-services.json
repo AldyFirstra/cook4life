@@ -7,26 +7,26 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:181870268939:android:26a9328e4a96ee0bce6d0e",
+        "mobilesdk_app_id": "1:181870268939:android:8ed4a3c784534bf3ce6d0e",
         "android_client_info": {
-          "package_name": "com.example.tugas_akhir"
+          "package_name": "com.snepy.cook4life"
         }
       },
       "oauth_client": [
         {
-          "client_id": "181870268939-9cvjmccetdp9eqhodb87en845nfi6ph2.apps.googleusercontent.com",
+          "client_id": "181870268939-71e622dfd2qa98jjmsvl5utogvnrdhok.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.tugas_akhir",
-            "certificate_hash": "b8600852dc2e4457de5bbf5ec99a62daf0b0e28c"
+            "package_name": "com.snepy.cook4life",
+            "certificate_hash": "3c375409f2945e1017460dfdc5d56ab834688dc5"
           }
         },
         {
-          "client_id": "181870268939-9mhj9jkj4lq00uuuu1jfr5i3s372lmjp.apps.googleusercontent.com",
+          "client_id": "181870268939-7r0dsguhrvt5l0te9v4hggc5jurphugp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.tugas_akhir",
-            "certificate_hash": "3c375409f2945e1017460dfdc5d56ab834688dc5"
+            "package_name": "com.snepy.cook4life",
+            "certificate_hash": "27e6e6caec67dcc1f068d7155276be32629a55a8"
           }
         },
         {

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tugas_akhir/app/global/widgets/item_card_grid.dart';
 import 'package:tugas_akhir/app/global/widgets/item_card_utama.dart';
+import 'package:tugas_akhir/app/modules/home/controllers/resep_controller.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
@@ -125,49 +126,45 @@ class HomeView extends GetView<HomeController> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Text(
-                    "Rekomendasi untukmu",
-                    style: GoogleFonts.poppins(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
-                  ),
+                  controller.resepRekom.obx(
+                      (state) => Text(
+                            "Riwayat resep yang kamu lihat",
+                            style: GoogleFonts.poppins(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.start,
+                          ),
+                      onEmpty: const SizedBox.shrink(),
+                      onError: (e) => const SizedBox.shrink(),
+                      onLoading: const SizedBox.shrink()),
                   const SizedBox(
                     height: 15,
                   ),
-                  SizedBox(
-                      height: 310,
-                      child: controller.resepRekom.obx(
-                          (state) => ListView.builder(
-                                itemCount: state!.length,
-                                scrollDirection: Axis.horizontal,
-                                physics: const BouncingScrollPhysics(),
-                                shrinkWrap: true,
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () => Get.toNamed(
-                                        Routes.DETAIL_MASAKAN,
-                                        arguments: state[index]),
-                                    child: ItemCardUtama(
-                                      state[index].nama,
-                                      foto: state[index].foto,
-                                    ),
-                                  );
-                                },
-                              ),
-                          onLoading: ListView.builder(
-                            itemCount: 5,
-                            scrollDirection: Axis.horizontal,
-                            physics: const BouncingScrollPhysics(),
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            itemBuilder: (context, index) {
-                              return const ItemCardUtama(
-                                "Memuat",
-                              );
-                            },
-                          ))),
+                  controller.resepRekom.obx(
+                      (state) => SizedBox(
+                            height: 310,
+                            child: ListView.builder(
+                              itemCount: state!.length,
+                              scrollDirection: Axis.horizontal,
+                              physics: const BouncingScrollPhysics(),
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () => Get.toNamed(
+                                          Routes.DETAIL_MASAKAN,
+                                          arguments: state[index])!
+                                      .then((value) =>
+                                          Get.find<RekomendasiResep>()
+                                              .getListResep()),
+                                  child: ItemCardUtama(resep: state[index]),
+                                );
+                              },
+                            ),
+                          ),
+                      onEmpty: const SizedBox.shrink(),
+                      onError: (e) => const SizedBox.shrink(),
+                      onLoading: const SizedBox.shrink()),
                   const SizedBox(
                     height: 10,
                   ),
@@ -267,11 +264,13 @@ class HomeView extends GetView<HomeController> {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () => Get.toNamed(Routes.DETAIL_MASAKAN,
-                                    arguments: state[index]),
+                                        arguments: state[index])!
+                                    .then((value) =>
+                                        Get.find<RekomendasiResep>()
+                                            .getListResep()),
                                 child: Padding(
                                   padding: const EdgeInsets.all(2.0),
-                                  child: ItemCardGrid(state[index].nama,
-                                      foto: state[index].foto),
+                                  child: ItemCardGrid(resep: state[index]),
                                 ),
                               );
                             },
@@ -291,7 +290,7 @@ class HomeView extends GetView<HomeController> {
                         itemBuilder: (context, index) {
                           return const Padding(
                             padding: EdgeInsets.all(2.0),
-                            child: ItemCardGrid("Memuat"),
+                            child: ItemCardGrid(),
                           );
                         },
                       ))

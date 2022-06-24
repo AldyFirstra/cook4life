@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:tugas_akhir/app/global/controllers/app_controller.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 import '../../../data/models/toko.dart';

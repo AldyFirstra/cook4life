@@ -1,4 +1,4 @@
-package com.example.tugas_akhir
+package com.snepy.cook4life
 
 import io.flutter.embedding.android.FlutterActivity
 
