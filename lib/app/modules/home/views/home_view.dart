@@ -179,7 +179,7 @@ class HomeView extends GetView<HomeController> {
                     height: 10,
                   ),
                   SizedBox(
-                    height: 70,
+                    height: 120,
                     child: controller.kategori.obx(
                         (state) => ListView.builder(
                               physics: const BouncingScrollPhysics(),
@@ -197,23 +197,39 @@ class HomeView extends GetView<HomeController> {
                                       }),
                                   child: Padding(
                                     padding: const EdgeInsets.all(5.0),
-                                    child: Container(
-                                      clipBehavior: Clip.hardEdge,
-                                      width: 70,
-                                      height: 70,
-                                      decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.amber,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.black12,
-                                            blurRadius: 4.0,
-                                            spreadRadius: 0.0,
-                                            offset: Offset(1.0, 3.0),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          clipBehavior: Clip.hardEdge,
+                                          width: 70,
+                                          height: 70,
+                                          decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.amber,
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black12,
+                                                blurRadius: 4.0,
+                                                spreadRadius: 0.0,
+                                                offset: Offset(1.0, 3.0),
+                                              ),
+                                            ],
                                           ),
-                                        ],
-                                      ),
-                                      child: Image.network(state[index].foto),
+                                          child:
+                                              Image.network(state[index].foto),
+                                        ),
+                                        const SizedBox(
+                                          height: 12,
+                                        ),
+                                        Text(
+                                          state[index].nama,
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.poppins(
+                                            color: Colors.amber,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
                                 );

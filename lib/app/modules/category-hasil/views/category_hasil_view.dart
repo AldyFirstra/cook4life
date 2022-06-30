@@ -36,6 +36,174 @@ class CategoryHasilView extends GetView<CategoryHasilController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                InkWell(
+                  onTap: () {
+                    Get.bottomSheet(Container(
+                      height: Get.height * 0.4,
+                      padding: const EdgeInsets.all(20),
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(12),
+                              topRight: Radius.circular(12))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 4,
+                            color: Colors.amber,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            "Sortir",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 24),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.sortir.value = "Abjad";
+                              controller.sort(1);
+                            },
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text("Abjad"),
+                                ),
+                                Container(
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.sortir.value =
+                                  "Rating tertinggi - Rating terendah";
+                              controller.sort(2);
+                            },
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                      "Rating tertinggi - Rating terendah"),
+                                ),
+                                Container(
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.sortir.value =
+                                  "Rating terendah - Rating tertinggi";
+
+                              controller.sort(3);
+                            },
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Text(
+                                      "Rating terendah - Rating tertinggi"),
+                                ),
+                                Container(
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.sortir.value =
+                                  "Harga tertinggi - Harga terendah";
+
+                              controller.sort(4);
+                            },
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child:
+                                      Text("Harga tertinggi - Harga terendah"),
+                                ),
+                                Container(
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              controller.sortir.value =
+                                  "Harga terendah - Harga tertinggi";
+
+                              controller.sort(5);
+                            },
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child:
+                                      Text("Harga terendah - Harga tertinggi"),
+                                ),
+                                Container(
+                                  height: 1,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ));
+                  },
+                  child: Obx(
+                    () => Container(
+                      width: controller.sortir.contains('-')
+                          ? Get.width * 0.8
+                          : Get.width * 0.5,
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                          color: Colors.amber.shade100,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: Colors.amber)),
+                      child: Row(
+                        children: [
+                          const Icon(
+                            Icons.sort,
+                            color: Colors.amber,
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Obx(() => Text(
+                                controller.sortir.value,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.amber),
+                              ))
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 controller.obx(
                     (state) => GridView.builder(
                           physics: const NeverScrollableScrollPhysics(),
@@ -48,7 +216,7 @@ class CategoryHasilView extends GetView<CategoryHasilController> {
                             crossAxisSpacing: 10,
                             childAspectRatio:
                                 MediaQuery.of(context).size.width /
-                                    (MediaQuery.of(context).size.height / 1.4),
+                                    (MediaQuery.of(context).size.height / 1.3),
                           ),
                           itemCount: state!.length,
                           itemBuilder: (context, index) {
@@ -70,7 +238,7 @@ class CategoryHasilView extends GetView<CategoryHasilController> {
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                         childAspectRatio: MediaQuery.of(context).size.width /
-                            (MediaQuery.of(context).size.height / 1.4),
+                            (MediaQuery.of(context).size.height / 1.375),
                       ),
                       itemCount: 10,
                       itemBuilder: (context, index) {
