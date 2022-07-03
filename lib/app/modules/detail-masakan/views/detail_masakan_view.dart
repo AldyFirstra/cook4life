@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:tugas_akhir/app/data/models/resep.dart';
 import 'package:tugas_akhir/app/data/repository/auth_repository.dart';
 import 'package:tugas_akhir/app/global/controllers/app_controller.dart';
@@ -186,6 +187,7 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
   }
 
   Column detailMasakan(Resep? state) {
+    final currencyFormatter = NumberFormat.currency(locale: 'ID');
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -257,7 +259,7 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                     width: 10,
                   ),
                   SizedBox(
-                    width: Get.width * 0.6,
+                    width: Get.width * 0.5,
                     child: Text(
                       state.user!.name,
                       style: GoogleFonts.poppins(
@@ -276,10 +278,12 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                     ),
                     child: Text(
                       "Rp " +
-                          List.generate(state.bahan!.length,
-                                  (index) => state.bahan![index].hargaBahan)
-                              .reduce((value, element) => value + element)
-                              .toString(),
+                          currencyFormatter
+                              .format(List.generate(state.bahan!.length,
+                                      (index) => state.bahan![index].hargaBahan)
+                                  .reduce((value, element) => value + element))
+                              .replaceAll("IDR", '')
+                              .split(',')[0],
                       style: GoogleFonts.poppins(
                         color: Colors.amber,
                         fontWeight: FontWeight.bold,
@@ -359,7 +363,10 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                             title: Text(
                               state.bahan![i].namaBahan +
                                   ", Rp " +
-                                  state.bahan![i].hargaBahan.toString(),
+                                  currencyFormatter
+                                      .format(state.bahan![i].hargaBahan)
+                                      .replaceAll('IDR', '')
+                                      .split(',')[0],
                               style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 fontSize: 12,

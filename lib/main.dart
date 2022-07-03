@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
       getPages: AppPages.routes,
       // initialRoute: AppPages.Introduction,
       initialRoute: PreferenceService.getFirst() != "untrue"
-          ? AppPages.INTRODUCTION
+          ? AppPages.INITIAL
           : getInitialRoute(),
       defaultTransition: Transition.fadeIn,
       initialBinding: AppBinding(),
