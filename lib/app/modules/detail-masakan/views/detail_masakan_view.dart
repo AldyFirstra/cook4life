@@ -27,7 +27,7 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(color: Colors.amber),
         title: Text(
-          controller.arguments.kategori!.nama,
+          controller.arguments.nama,
           style: GoogleFonts.poppins(
               color: Colors.amber, fontSize: 18, fontWeight: FontWeight.bold),
         ),
@@ -360,17 +360,33 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                                 ),
                               ],
                             ),
-                            title: Text(
-                              state.bahan![i].namaBahan +
-                                  ", Rp " +
-                                  currencyFormatter
-                                      .format(state.bahan![i].hargaBahan)
-                                      .replaceAll('IDR', '')
-                                      .split(',')[0],
-                              style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    state.bahan![i].namaBahan,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "Rp " +
+                                        currencyFormatter
+                                            .format(state.bahan![i].hargaBahan)
+                                            .replaceAll('IDR', '')
+                                            .split(',')[0],
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                             trailing: const Icon(Icons.location_on),
                           ),
@@ -410,19 +426,31 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                                 ),
                               ],
                             ),
-                            title: Text(
-                              state.langkah![i].waktu.toString() + " Menit",
-                              style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
-                            ),
-                            subtitle: Text(
-                              state.langkah![i].deskripsi,
-                              style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 12,
-                              ),
+                            title: Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    state.langkah![i].deskripsi,
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    "          " +
+                                        state.langkah![i].waktu.toString() +
+                                        " Menit",
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         )

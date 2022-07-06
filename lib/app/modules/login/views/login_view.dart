@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tugas_akhir/app/global/controllers/app_controller.dart';
 
 import '../controllers/login_controller.dart';
 
@@ -76,6 +77,21 @@ class LoginView extends GetView<LoginController> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Center(
+                  child: InkWell(
+                    onTap: () {
+                      Get.find<AppController>().privacyPolicy();
+                    },
+                    child: const Text(
+                      "Kebijakan Privasi",
+                      style: TextStyle(
+                          color: Colors.amber, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

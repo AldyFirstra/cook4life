@@ -45,7 +45,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                           Text(
-                            "Mau memasak apa hari ini?",
+                            "Mau masak apa hari ini?",
                             style: GoogleFonts.poppins(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -127,7 +127,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   controller.resepRekom.obx(
                       (state) => Text(
-                            "Riwayat resep yang kamu lihat",
+                            "Terakhir dilihat",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold),
