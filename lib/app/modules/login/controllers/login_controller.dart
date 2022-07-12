@@ -4,9 +4,18 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tugas_akhir/app/data/repository/auth_repository.dart';
 import 'package:tugas_akhir/app/extra/widget.dart';
+import 'package:tugas_akhir/app/global/controllers/app_controller.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 
 class LoginController extends GetxController {
+  @override
+  void onInit() {
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      Get.find<AppController>().privacyPolicy();
+    });
+    super.onInit();
+  }
+
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
