@@ -45,14 +45,14 @@ class Resep {
       required this.allRating});
 
   factory Resep.fromMap(Map map) {
-    int rat = 0;
+    double rat = 0;
     if (map['allrating'] != null) {
       if (map['allrating'].isNotEmpty) {
         List listRat = map['allrating'];
         var allrat =
             List.generate(listRat.length, (index) => listRat[index]['rating']);
         rat = allrat.reduce((value, element) => value + element);
-        rat = rat ~/ listRat.length;
+        rat = rat / listRat.length;
       }
     }
     return Resep(
