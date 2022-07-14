@@ -403,6 +403,24 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      InkWell(onTap: (){},
+                      child: Container(
+                    height: 50,
+                    width: Get.width,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      "Lihat video",
+                      style: GoogleFonts.poppins(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),),
+                  const SizedBox(
+                    height: 10,
+                  ),
                       Text(
                         "Langkah - langkah",
                         style: GoogleFonts.poppins(

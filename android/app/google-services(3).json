@@ -46,38 +46,6 @@
           }
         },
         {
-          "client_id": "181870268939-bj7cgfook8u6va48qnaevekaubt8l27k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.snepy.cook4life",
-            "certificate_hash": "1f9488be99851623bceea724d10263045b06c460"
-          }
-        },
-        {
-          "client_id": "181870268939-kq9vuhr8dmqei8j4no8fr5qkko1ut8q9.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.snepy.cook4life",
-            "certificate_hash": "159c4153a0e0ff8bd8aab6d9d8147d8bb5688e21"
-          }
-        },
-        {
-          "client_id": "181870268939-n5cds4v974mttador41if2cp3qkrj799.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.snepy.cook4life",
-            "certificate_hash": "0360f1e3e73f1ee22150d53cbe138c6558f673f5"
-          }
-        },
-        {
-          "client_id": "181870268939-nqsietcdjsp90u5hv44d3ijh5ef0nolp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.snepy.cook4life",
-            "certificate_hash": "b22012dac5a48169cf0f9dad2a63137328e87577"
-          }
-        },
-        {
           "client_id": "181870268939-l1oa73l0ah179d9fv7pqtc2lm3cjdmd2.apps.googleusercontent.com",
           "client_type": 3
         }
