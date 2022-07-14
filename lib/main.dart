@@ -29,9 +29,7 @@ class MyApp extends StatelessWidget {
       title: "Cook4Life",
       getPages: AppPages.routes,
       // initialRoute: AppPages.Introduction,
-      initialRoute: PreferenceService.getFirst() != "untrue"
-          ? AppPages.INITIAL
-          : getInitialRoute(),
+      initialRoute: getInitialRoute(),
       defaultTransition: Transition.fadeIn,
       initialBinding: AppBinding(),
     );

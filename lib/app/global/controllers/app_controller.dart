@@ -5,14 +5,6 @@ import 'package:tugas_akhir/app/data/models/user.dart';
 class AppController extends GetxController {
   User? user;
 
-  @override
-  void onInit() {
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      privacyPolicy();
-    });
-    super.onInit();
-  }
-
   void privacyPolicy() {
     showDialog(
         context: Get.context!,
