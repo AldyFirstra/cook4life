@@ -107,12 +107,13 @@ class ItemCardGrid extends StatelessWidget {
                                 ? FontAwesomeIcons.solidStar
                                 : FontAwesomeIcons.star,
                             size: 12,
-                            color: resep!.allRatingCount > 0 ? Colors.amber : null,
+                            color:
+                                resep!.allRatingCount > 0 ? Colors.amber : null,
                           ),
                           const SizedBox(
                             width: 6,
                           ),
-                          Text(resep!.allRatingCount.toString()),
+                          Text(resep!.allRatingCount.toStringAsFixed(2)),
                           const SizedBox(
                             width: 12,
                           ),

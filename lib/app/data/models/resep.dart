@@ -51,7 +51,8 @@ class Resep {
         List listRat = map['allrating'];
         var allrat =
             List.generate(listRat.length, (index) => listRat[index]['rating']);
-        rat = allrat.reduce((value, element) => value + element);
+        var result = allrat.reduce((value, element) => value + element);
+        rat = result is double ? result : (result as int).toDouble();
         rat = rat / listRat.length;
       }
     }
