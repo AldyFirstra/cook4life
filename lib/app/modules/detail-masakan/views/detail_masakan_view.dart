@@ -11,11 +11,25 @@ import 'package:tugas_akhir/app/data/repository/auth_repository.dart';
 import 'package:tugas_akhir/app/global/controllers/app_controller.dart';
 import 'package:tugas_akhir/app/routes/app_pages.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../controllers/detail_masakan_controller.dart';
 
 class DetailMasakanView extends GetView<DetailMasakanController> {
-  const DetailMasakanView({Key? key}) : super(key: key);
+  // const DetailMasakanView({Key? key}) : super(key: key);
+  // try {
+  //   String videoID= YoutubePlayer.convertUrlToId("https://www.youtube.com/watch?v=BBAyRBTfsOU");
+  //   print(videoID);
+  // } on Exception catch (exception) {
+  //   print(exception);
+  //   return "";
+  // } catch (error) {
+  //   print(error);
+  //   return "";
+  // }
+  final String videoID = YoutubePlayer.convertUrlToId(
+          "https://www.youtube.com/watch?v=BBAyRBTfsOU")
+      .toString();
 
   @override
   Widget build(BuildContext context) {
@@ -403,24 +417,41 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InkWell(onTap: (){},
-                      child: Container(
-                    height: 50,
-                    width: Get.width,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      "Lihat video",
-                      style: GoogleFonts.poppins(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          height: 50,
+                          width: Get.width,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Text(
+                            "Lihat video",
+                            style: GoogleFonts.poppins(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      YoutubePlayer(
+                        controller: YoutubePlayerController(
+                          initialVideoId: videoID,
+                          flags: YoutubePlayerFlags(
+                            autoPlay: false,
+                            hideControls: false,
+                            controlsVisibleAtStart: true,
+                            mute: false,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       Text(
                         "Langkah - langkah",
                         style: GoogleFonts.poppins(

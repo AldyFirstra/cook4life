@@ -104,7 +104,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DETAIL_MASAKAN,
-      page: () => const DetailMasakanView(),
+      page: () =>  DetailMasakanView(),
       binding: DetailMasakanBinding(),
     ),
     GetPage(

@@ -100,6 +100,49 @@ class DetailResepView extends GetView<DetailResepController> {
                   height: 20,
                 ),
                 Text(
+                  "Link Video",
+                  style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                TextFormField(
+                  autocorrect: false,
+                  controller: controller.namaMakasakanController,
+                  // validator: (val) {
+                  //   if (val?.isEmpty ?? true) {
+                  //     return "Nama masakan tidak boleh kosong";
+                  //   }
+                  //   return null;
+                  // },
+                  cursorRadius: const Radius.circular(12),
+                  decoration: InputDecoration(
+                    hintText: "Masukkan link video",
+                    hintStyle: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        color: Colors.amber,
+                      ),
+                    ),
+                    fillColor: Colors.grey[200],
+                    filled: true,
+                    enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent),
+                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent),
+                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(12))),
+                  ),
+                  style: GoogleFonts.poppins(),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
                   "Nama Masakan",
                   style: GoogleFonts.poppins(
                       color: Colors.black,
