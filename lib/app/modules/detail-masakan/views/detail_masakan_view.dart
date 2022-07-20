@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
@@ -46,6 +47,11 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
               color: Colors.amber, fontSize: 18, fontWeight: FontWeight.bold),
         ),
         actions: [
+          IconButton(
+              onPressed: () {
+                share(controller.arguments);
+              },
+              icon: Icon(Icons.share)),
           controller.arguments.user!.id == Get.find<AppController>().user!.id
               ? PopupMenuButton(
                   onSelected: (value) {
@@ -512,6 +518,14 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
         )
       ],
     );
+  }
+
+  Future<void> share(Resep resep) async {
+    await FlutterShare.share(
+        title: resep.nama,
+        text: resep.deskripsi,
+        linkUrl: 'http://cook4life.takhruj.com/share/${resep.id}',
+        chooserTitle: "Share " + resep.nama + " pada :");
   }
 
   Card userComment(Komentar komentar) {
