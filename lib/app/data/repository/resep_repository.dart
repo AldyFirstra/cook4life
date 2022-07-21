@@ -42,6 +42,7 @@ class ResepRepository {
     required String nama_resep,
     required int kategori_id,
     required String deskripsi,
+    String? social,
     required File foto,
     required List<Map<String, dynamic>> bahan,
     required List<Map<String, dynamic>> langkah,
@@ -52,6 +53,7 @@ class ResepRepository {
           deskripsi: deskripsi,
           foto: foto,
           bahan: bahan,
+          social: social,
           langkah: langkah);
 
   Future<List<Resep>?> getListRekomendasi() =>
@@ -78,6 +80,7 @@ class ResepRepository {
     required String nama_resep,
     required int kategori_id,
     required String deskripsi,
+    String? social,
     required File? foto,
     required List<Map<String, dynamic>> bahan,
     required List<Map<String, dynamic>> langkah,
@@ -88,6 +91,7 @@ class ResepRepository {
           kategori_id: kategori_id,
           deskripsi: deskripsi,
           foto: foto,
+          social: social,
           bahan: bahan,
           langkah: langkah);
 

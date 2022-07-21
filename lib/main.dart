@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:tugas_akhir/app/data/models/resep.dart';
@@ -17,19 +18,23 @@ import 'package:tugas_akhir/app/global/controllers/app_controller.dart';
 
 import 'app/data/utils/service_preferences.dart';
 
-import 'package:uni_links/uni_links.dart';
-
 bool _initialUriIsHandled = false;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await PreferenceService.init();
   await SharedPreferences.getInstance();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+
+  final PendingDynamicLinkData? initialLink =
+      await FirebaseDynamicLinks.instance.getInitialLink();
+  runApp(MyApp(
+    initialLink: initialLink,
+  ));
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  PendingDynamicLinkData? initialLink;
+  MyApp({Key? key, this.initialLink}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -53,18 +58,19 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       title: "Cook4Life",
       getPages: AppPages.routes,
       // initialRoute: AppPages.Introduction,
-      initialRoute: getInitialRoute(),
+      initialRoute: getInitialRoute(widget.initialLink),
       defaultTransition: Transition.fadeIn,
       initialBinding: AppBinding(),
     );
   }
 
-  String getInitialRoute() {
+  String getInitialRoute(PendingDynamicLinkData? link) {
     var user = PreferenceService.instance.getString('user');
     if (user != null) {
       Get.put<AppController>(
         AppController(),
       ).user = User.fromMap(json.decode(user));
+      Get.find<AppController>().redirect(link);
       return AppPages.HOME;
     } else {
       return AppPages.INITIAL;

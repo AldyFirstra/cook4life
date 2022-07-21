@@ -111,7 +111,7 @@ class DetailResepView extends GetView<DetailResepController> {
                 ),
                 TextFormField(
                   autocorrect: false,
-                  controller: controller.namaMakasakanController,
+                  controller: controller.socialController,
                   // validator: (val) {
                   //   if (val?.isEmpty ?? true) {
                   //     return "Nama masakan tidak boleh kosong";

@@ -136,6 +136,7 @@ class DetailResep2Controller extends GetxController {
             kategori_id: resepInput.kategori!.id,
             deskripsi: resepInput.deskripsi!,
             foto: resepInput.foto!,
+            social: resepInput.social,
             bahan: List.generate(
                 bahanCount,
                 (index) => {
@@ -173,6 +174,7 @@ class DetailResep2Controller extends GetxController {
             kategori_id: resepInput.kategori!.id,
             deskripsi: resepInput.deskripsi!,
             foto: resepInput.foto,
+            social: resepInput.social,
             bahan: List.generate(
                 bahanCount,
                 (index) => {

@@ -1,3 +1,4 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -28,9 +29,6 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
   //   print(error);
   //   return "";
   // }
-  final String videoID = YoutubePlayer.convertUrlToId(
-          "https://www.youtube.com/watch?v=BBAyRBTfsOU")
-      .toString();
 
   @override
   Widget build(BuildContext context) {
@@ -423,38 +421,47 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          height: 50,
-                          width: Get.width,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            "Lihat video",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
+                      state.social != null
+                          ? InkWell(
+                              onTap: () {
+                                controller.lihatVideo.value =
+                                    !controller.lihatVideo.value;
+                              },
+                              child: Container(
+                                height: 50,
+                                width: Get.width,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.amber,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  "Lihat video",
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            )
+                          : SizedBox.shrink(),
                       SizedBox(
                         height: 10,
                       ),
-                      YoutubePlayer(
-                        controller: YoutubePlayerController(
-                          initialVideoId: videoID,
-                          flags: YoutubePlayerFlags(
-                            autoPlay: false,
-                            hideControls: false,
-                            controlsVisibleAtStart: true,
-                            mute: false,
-                          ),
-                        ),
-                      ),
+                      Obx(() => controller.lihatVideo.value
+                          ? YoutubePlayer(
+                              controller: YoutubePlayerController(
+                                initialVideoId:
+                                    YoutubePlayer.convertUrlToId(state.social!)
+                                        .toString(),
+                                flags: YoutubePlayerFlags(
+                                  autoPlay: false,
+                                  hideControls: false,
+                                  controlsVisibleAtStart: true,
+                                  mute: false,
+                                ),
+                              ),
+                            )
+                          : SizedBox.shrink()),
                       const SizedBox(
                         height: 10,
                       ),
@@ -521,10 +528,19 @@ class DetailMasakanView extends GetView<DetailMasakanController> {
   }
 
   Future<void> share(Resep resep) async {
+    final dynamicLinkParams = DynamicLinkParameters(
+      link: Uri.parse("https://cook4life.takhruj.com/share?id=${resep.id}"),
+      uriPrefix: "https://cook4life.page.link",
+      androidParameters:
+          const AndroidParameters(packageName: "com.snepy.cook4life"),
+    );
+    final dynamicLink =
+        await FirebaseDynamicLinks.instance.buildLink(dynamicLinkParams);
+
     await FlutterShare.share(
         title: resep.nama,
         text: resep.deskripsi,
-        linkUrl: 'http://cook4life.takhruj.com/share/${resep.id}',
+        linkUrl: dynamicLink.toString(),
         chooserTitle: "Share " + resep.nama + " pada :");
   }
 

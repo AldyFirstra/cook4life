@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:tugas_akhir/app/data/api/network.dart';
@@ -76,6 +77,7 @@ class ResepServices {
     required String nama_resep,
     required int kategori_id,
     required String deskripsi,
+    String? social,
     required File foto,
     required List<Map<String, dynamic>> bahan,
     required List<Map<String, dynamic>> langkah,
@@ -84,6 +86,7 @@ class ResepServices {
       'nama_resep': nama_resep,
       'kategori_id': kategori_id,
       'deskripsi': deskripsi,
+      'social': social
     };
     for (int i = 0; i < bahan.length; i++) {
       bahan[i].forEach((key, value) {
@@ -95,6 +98,9 @@ class ResepServices {
         body['langkah[$i][$key]'] = value;
       });
     }
+    log('===========TEST========');
+    log(body.toString());
+    log('===========TEST========');
     var response = await API
         .mulipartRequest(_resep, "POST", body: body, file: {'foto': foto});
     if (response.statusCode == 201) {
@@ -109,6 +115,7 @@ class ResepServices {
     required String nama_resep,
     required int kategori_id,
     required String deskripsi,
+    String? social,
     required File? foto,
     required List<Map<String, dynamic>> bahan,
     required List<Map<String, dynamic>> langkah,
@@ -117,6 +124,7 @@ class ResepServices {
       'nama_resep': nama_resep,
       'kategori_id': kategori_id.toString(),
       'deskripsi': deskripsi,
+      'social': social
     };
     for (int i = 0; i < bahan.length; i++) {
       bahan[i].forEach((key, value) {

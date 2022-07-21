@@ -25,6 +25,7 @@ class Resep {
   double meRating;
   double allRatingCount;
   List<Rating> allRating;
+  String? social;
 
   Resep(
       {required this.id,
@@ -39,6 +40,7 @@ class Resep {
       required this.isFav,
       required this.meRating,
       required this.allRatingCount,
+      this.social,
       this.bahan,
       this.langkah,
       this.komentar = const [],
@@ -57,43 +59,43 @@ class Resep {
       }
     }
     return Resep(
-      id: map['id'],
-      kategori:
-          map['kategori'] != null ? Kategori.fromMap(map['kategori']) : null,
-      nama: map['nama_resep'],
-      deskripsi: map['deskripsi'],
-      foto: ApiConfig.BASE_URL_STORAGE +
-          map['foto'].toString().replaceAll('storage', ''),
-      user: map['user'] != null ? User.fromMap(map['user']) : null,
-      bahan: map['bahan'] != null
-          ? List.generate((map['bahan'] as List).length,
-              (index) => Bahan.fromMap(map['bahan'][index]))
-          : null,
-      langkah: map['langkah'] != null
-          ? List.generate((map['langkah'] as List).length,
-              (index) => Langkah.fromMap(map['langkah'][index]))
-          : null,
-      like: map['like_count'] ?? 0,
-      isLiked: map['like_me_count'] == 1,
-      favorite: map['favorit_count'] ?? 0,
-      isFav: map['favorit_me_count'] == 1,
-      komentar: map['komentar'] != null
-          ? List.generate((map['komentar'] as List).length,
-                  (index) => Komentar.fromMap(map['komentar'][index]))
-              .reversed
-              .toList()
-          : [],
-      meRating: map['rating'] != null
-          ? map['rating'].isNotEmpty
-              ? (map['rating'][0]?['rating'] as int).toDouble()
-              : 0
-          : 0,
-      allRatingCount: rat.toDouble(),
-      allRating: map['allrating'] != null
-          ? List.generate((map['allrating'] as List).length,
-              (index) => Rating.fromMap(map['allrating'][index]))
-          : [],
-    );
+        id: map['id'],
+        kategori:
+            map['kategori'] != null ? Kategori.fromMap(map['kategori']) : null,
+        nama: map['nama_resep'],
+        deskripsi: map['deskripsi'],
+        foto: ApiConfig.BASE_URL_STORAGE +
+            map['foto'].toString().replaceAll('storage', ''),
+        user: map['user'] != null ? User.fromMap(map['user']) : null,
+        bahan: map['bahan'] != null
+            ? List.generate((map['bahan'] as List).length,
+                (index) => Bahan.fromMap(map['bahan'][index]))
+            : null,
+        langkah: map['langkah'] != null
+            ? List.generate((map['langkah'] as List).length,
+                (index) => Langkah.fromMap(map['langkah'][index]))
+            : null,
+        like: map['like_count'] ?? 0,
+        isLiked: map['like_me_count'] == 1,
+        favorite: map['favorit_count'] ?? 0,
+        isFav: map['favorit_me_count'] == 1,
+        komentar: map['komentar'] != null
+            ? List.generate((map['komentar'] as List).length,
+                    (index) => Komentar.fromMap(map['komentar'][index]))
+                .reversed
+                .toList()
+            : [],
+        meRating: map['rating'] != null
+            ? map['rating'].isNotEmpty
+                ? (map['rating'][0]?['rating'] as int).toDouble()
+                : 0
+            : 0,
+        allRatingCount: rat.toDouble(),
+        allRating: map['allrating'] != null
+            ? List.generate((map['allrating'] as List).length,
+                (index) => Rating.fromMap(map['allrating'][index]))
+            : [],
+        social: map['social']);
   }
 }
 
@@ -129,15 +131,18 @@ class ResepInput {
   String? nama;
   Kategori? kategori;
   String? deskripsi;
+  String? social;
   File? foto;
 
-  ResepInput({this.kategori, this.nama, this.deskripsi, this.foto});
+  ResepInput(
+      {this.kategori, this.nama, this.deskripsi, this.foto, this.social});
 
   toMap() => {
         'nama_resep': nama,
         'kategori_id': kategori!.id,
         'deskripsi': deskripsi,
-        'foto': foto
+        'foto': foto,
+        'social': social
       };
 }
 

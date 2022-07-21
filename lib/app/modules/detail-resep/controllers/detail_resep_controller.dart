@@ -18,10 +18,12 @@ class DetailResepController extends GetxController {
 
   late TextEditingController namaMakasakanController;
   late TextEditingController deskripsiMasakanController;
+  late TextEditingController socialController;
   @override
   void onInit() {
     namaMakasakanController = TextEditingController(text: resep?.nama);
     deskripsiMasakanController = TextEditingController(text: resep?.deskripsi);
+    socialController = TextEditingController(text: resep?.social);
     super.onInit();
   }
 
@@ -43,11 +45,13 @@ class DetailResepController extends GetxController {
           resepInput.nama = namaMakasakanController.text;
           resepInput.foto = File(image.value!.path);
           resepInput.kategori = kategori;
+          resepInput.social = socialController.text;
           Get.toNamed(Routes.DETAIL_RESEP2, arguments: resepInput);
         }
       } else {
         resepInput.deskripsi = deskripsiMasakanController.text;
         resepInput.nama = namaMakasakanController.text;
+        resepInput.social = socialController.text;
         resepInput.foto = image.value != null ? File(image.value!.path) : null;
         resepInput.kategori = kategori ?? resep!.kategori;
         Get.toNamed(Routes.DETAIL_RESEP2, arguments: [resep, resepInput]);
@@ -59,6 +63,7 @@ class DetailResepController extends GetxController {
   void onClose() {
     namaMakasakanController.dispose();
     deskripsiMasakanController.dispose();
+    socialController.dispose();
     super.onClose();
   }
 }

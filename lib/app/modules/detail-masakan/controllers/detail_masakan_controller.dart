@@ -11,6 +11,8 @@ import '../../../data/repository/resep_repository.dart';
 class DetailMasakanController extends GetxController with StateMixin<Resep?> {
   final Resep arguments = Get.arguments;
 
+  final lihatVideo = false.obs;
+
   final TextEditingController komentarController = TextEditingController();
 
   @override

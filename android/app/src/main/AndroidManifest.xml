@@ -61,17 +61,7 @@
               <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
               <data
                 android:scheme="http"
-                android:host="cook4life.takhruj.com" />
-            </intent-filter>
-            <!-- Deep Links -->
-            <intent-filter>
-              <action android:name="android.intent.action.VIEW" />
-              <category android:name="android.intent.category.DEFAULT" />
-              <category android:name="android.intent.category.BROWSABLE" />
-              <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
-              <data
-                android:scheme="http"
-                android:host="takhruj.com" />
+                android:host="cook4life.page.link" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
