@@ -21,11 +21,13 @@ class AppController extends GetxController {
 
   Future<void> redirect(PendingDynamicLinkData? link) async {
     if (link != null) {
-      Custom.loading();
-      Resep? resep = await ResepRepository.instance.getDetailResep(
-          int.tryParse(link.link.queryParameters['id'].toString()) ?? -1);
-      Get.back();
-      Get.toNamed(Routes.DETAIL_MASAKAN, arguments: resep);
+      Future.delayed(const Duration(seconds: 2)).then((value) async {
+        Custom.loading();
+        Resep? resep = await ResepRepository.instance.getDetailResep(
+            int.tryParse(link.link.queryParameters['id'].toString()) ?? -1);
+        Get.back();
+        Get.toNamed(Routes.DETAIL_MASAKAN, arguments: resep);
+      });
     }
   }
 
